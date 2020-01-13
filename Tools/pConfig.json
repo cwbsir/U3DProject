@@ -1,0 +1,20 @@
+{
+	"headList" : [
+		"define.lua",
+		"exception.lua",
+		"functions.lua",
+		"GameStart.lua",
+	],
+	"exceptList" : [
+		"ImportClient.lua",
+	],
+	"packHead" : [
+	],
+	"packEnd" : [
+	],
+	"packList" : [
+	],
+	"packlua" : [
+		"ImportClient.lua"
+	]
+}
