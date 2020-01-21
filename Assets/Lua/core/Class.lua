@@ -31,18 +31,3 @@ function class(classname, super)
 
     return cls;
 end
-
-SuperClass = class("SuperClass");
-
-function SuperClass:ctor()
-    print("SuperClass:ctor");
-end
-
-SubClass = class("SubClass",SuperClass);
-
-function SubClass:ctor()
-    SubClass.super.ctor(self);
-    print("SubClass:ctor");
-end
-
-SubClass:new();

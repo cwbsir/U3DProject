@@ -4,9 +4,26 @@
 		"exception.lua",
 		"functions.lua",
 		"GameStart.lua",
+		
+		"core/Clone.lua",
+		"core/Class.lua",
+		"core/EventDispatcher.lua",
+
+		"ui/KCreator.lua",
+		"ui/Node.lua",
+		"ui/Label.lua",
+		"ui/Image.lua",
+
+		"UIManager.lua"
+		"GlobalConst.lua"
+		"TickManager.lua",
+		"GlobalManager.lua",
+		"CameraManager.lua",
+	
 	],
 	"exceptList" : [
 		"ImportClient.lua",
+		"Main.lua",
 	],
 	"packHead" : [
 	],

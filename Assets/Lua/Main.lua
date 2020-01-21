@@ -1,14 +1,25 @@
+globalConst = nil;
+globalManager = nil;
+
+
 --主入口函数。从这里开始lua逻辑
-function Main()					
-	print("logic start")	 		
+function main()					
+	print("logic start");
+
+	require("ImportClient");
+
+	globalConst = GobalConst:new();
+	globalManager = GlobalManager:new();
+
+	globalConst:init();
+	globalManager:init();
 end
 
---场景切换通知
-function OnLevelWasLoaded(level)
-	collectgarbage("collect")
-	Time.timeSinceLevelLoad = 0
+function tickFunc(deltaTime)
+	-- print("deltaTime=",deltaTime);
+	globalManager.tickManager:update(deltaTime)
 end
 
-function OnApplicationQuit()
-	
+function fixedTickFunc(deltaTime)
+	-- print("deltaTime=",deltaTime);
 end

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7EAFE305-1A19-9324-D84D-D5EE8FC5BEAA}</ProjectGuid>
+    <ProjectGuid>{B8838156-6750-550C-E301-34944B67F4CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -84,19 +84,19 @@
     <Compile Include="Assets\ToLua\Injection\Editor\ToLuaInjectionHelper.cs" />
     <Compile Include="Assets\ToLua\Injection\Editor\ToLuaText.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -333,37 +333,37 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="CString">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Assets/Plugins/CString.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Assets/Plugins/CString.dll</HintPath>
     </Reference>
     <Reference Include="Debugger">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Assets/Plugins/Debugger.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Assets/Plugins/Debugger.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Cecil">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Assets/ToLua/Injection/Editor/Unity.Cecil.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Assets/ToLua/Injection/Editor/Unity.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Cecil.Mdb">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Assets/ToLua/Injection/Editor/Unity.Cecil.Mdb.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Assets/ToLua/Injection/Editor/Unity.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Cecil.Pdb">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Assets/ToLua/Injection/Editor/Unity.Cecil.Pdb.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Assets/ToLua/Injection/Editor/Unity.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CecilTools">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Assets/ToLua/Injection/Editor/Unity.CecilTools.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Assets/ToLua/Injection/Editor/Unity.CecilTools.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>E:/U3dProject/MyExample/MyNewProject1/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>E:/myProject/U3DProject/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -722,7 +722,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{B28D5940-F3EF-4453-E055-A402B5567C0A}</Project>
+      <Project>{03D58342-8069-4BE3-87A5-D7CDA70F8499}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
