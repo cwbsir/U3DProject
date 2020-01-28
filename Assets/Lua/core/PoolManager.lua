@@ -3,30 +3,18 @@
 PoolManager = class("PoolManager");
 
 function PoolManager:ctor()
-	self.vector3List = {};
 	self.vector2List = {};
+	self.vector3List = {};
+
+	self.uiNodeList = {};
 
 	self.quoteDataList = {};
-	self.uiNodeList = {};
-	self.uiImageList = {};
-	self.uiLabelList = {};
-	self.downloadItemList = {};
-	self.uiNumberList = {};
-	self.ui3DNumberList = {};
-	self.actionInfoList = {};
-	self.itemGridList = {};
-	self.equipGridList = {};
-	self.shopGridList = {};
-	self.skillGridList = {};
-	self.richLabelList = {};
-	self.ui3DImageList = {};
-	self.ui3DLabelList = {};
-	self.loaderItemList = {};
-	self.chatItemInfoList = {};
-
+	
 
 	self.types = {};
-	-- self.types["QuoteData"] = {QuoteData,self.quoteDataList,0};
+	self.types["Node"] = {Node,self.uiNodeList,10}; 
+
+	self.types["QuoteData"] = {QuoteData,self.quoteDataList,0};
 	-- self.types["DownloadItem"] = {DownloadItem,self.downloadItemList,100};
 	-- self.types["LoaderItem"] = {LoaderItem,self.loaderItemList,100};
 	-- self.types["KUINode"] = {KUINode,self.uiNodeList,0};
@@ -43,8 +31,9 @@ function PoolManager:ctor()
 	-- self.types["ChatItemInfo"] = {ChatItemInfo,self.chatItemInfoList,0};
 end
 
-function PoolManager:createItem(usePool,itemType,is3D)
+function PoolManager:createItem(usePool,itemType)
 	if usePool == nil then usePool = true;end
+	
 	local typeClass = self.types[itemType][1];
 	local poolList = self.types[itemType][2];
 	if globalData.USE_POOL and usePool then
@@ -60,15 +49,15 @@ function PoolManager:createItem(usePool,itemType,is3D)
 			item.__isForPoolList = true;
 			return item,false;
 		else
-			item = typeClass:new(is3D);
+			item = typeClass:new();
 			item.__isInPoolList = false;
 			-- 使用完需要放回缓存池
 			item.__isForPoolList = true;
-			return item, true;
+			return item,true;
 		end
 	end
 	-- 直接创建
-	item = typeClass:new(is3D);
+	item = typeClass:new();
 	-- 是否在池中
 	item.__isInPoolList = false;
 	-- 不放回缓存池
@@ -76,16 +65,17 @@ function PoolManager:createItem(usePool,itemType,is3D)
 	return item,true;
 end
 
-function PoolManager:putItem(item,itemType)
+function PoolManager:putItem(item)
 	-- 防止重复放入池中
 	if item.__isInPoolList then return;end
+	local itemType = item.__cname;
 	local typeClass = self.types[itemType][1];
 	local poolList = self.types[itemType][2];
 	local limitCount = self.types[itemType][3];
 	if item.__cname ~= typeClass.__cname or  #poolList >= limitCount or globalData.USE_POOL == false or item.__isForPoolList == false then
 		item:poolDispose();
 	else
-		item:poolReset();
+		item:doClear();
 		if item.__isInPoolList == false then
 			table.insert(poolList,item);
 			-- 放入池中，标记一下
@@ -93,3 +83,54 @@ function PoolManager:putItem(item,itemType)
 		end
 	end
 end
+
+function PoolManager:createNode(usePool)
+	return self:createItem(usePool,"Node");
+end
+
+function PoolManager:createQuoteData(usePool)
+	return self:createItem(usePool,"QuoteData");
+end
+
+function PoolManager:createVector2(x,y)
+	local len = #self.vector2List;
+	local v = nil;
+	if(len > 0)then
+		v = table.remove(self.vector2List,1);
+	end
+	if(v == nil)then
+		v = Vector2.zero;
+	end
+	if(x ~= nil or y ~= nil)then
+		v:Set(x,y);
+	end
+
+	return v;
+end
+
+function PoolManager:putVector2(vec2)
+	vec2:Set(0,0);
+	table.insert(self.vector2List,vec2);
+end
+
+function PoolManager:createVector3(x,y,z)
+	local len = #self.vector3List;
+	local v = nil;
+	if(len > 0)then
+		 v = table.remove(self.vector3List,1);
+	end
+	if(v == nil)then
+		v = Vector3.zero;
+	end
+	if(x ~= nil or y ~= nil or z ~= nil)then
+		v:Set(x,y,z);
+	end
+
+	return v;
+end
+
+function PoolManager:putVector3(vec3)
+	vec3:Set(0,0,0);
+	table.insert(self.vector3List,vec3);
+end
+

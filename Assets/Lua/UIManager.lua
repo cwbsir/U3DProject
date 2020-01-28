@@ -7,18 +7,34 @@ function UIManager:ctor()
 	self.canvas = nil;
 	self.canvasTransform = nil;
 
+	self.mainNode = nil;
+	self.mainLayer = nil;
+	self.mainTransform = nil;
+
 	self.canvasScale = 1;
 	self.canvas_width = 1280;
 	self.canvas_height = 720;
 	self.canvasWHScale = nil;
-
-
-
 end
 
 function UIManager:init()
 	self:createCanvas();
+	self:createCanvasLayer();
 end
+
+function UIManager:createCanvas()
+	local go = self:newCanvas("Canvas",globalManager.cameraManager.uiCamera,300,-100,globalConst.layerConst.UI,1);
+	UnityEngine.Object.DontDestroyOnLoad(go);
+	self.canvasTransform = go:GetComponent("RectTransform");
+	self.canvas = go;
+end
+
+function UIManager:createCanvasLayer()
+	-- self.panelLayer, self.panelTransform, self.panelNode = self:createLayer(self.canvasTransform, "PanelLayer", 900);
+	self.mainLayer, self.mainTransform, self.mainNode = self:createLayer(self.canvasTransform, "MainLayer", 1000);
+	self.mainLayer.layer = globalConst.layerConst.UI;
+end
+
 
 function UIManager:newCanvas(name,camera,planeDistance,sortingOrder,layer,index)
 	local go = UnityEngine.GameObject(name);
@@ -51,10 +67,18 @@ function UIManager:newCanvas(name,camera,planeDistance,sortingOrder,layer,index)
 	return go;
 end
 
-
-function UIManager:createCanvas()
-	local go = self:newCanvas("Canvas",globalManager.cameraManager.uiCamera,300,-100,globalConst.layerConst.UI,1);
-	UnityEngine.Object.DontDestroyOnLoad(go);
-	self.canvasTransform = go:GetComponent("RectTransform");
-	self.canvas = go;
+function UIManager:createLayer(parent, layer, zPosition)
+	-- local node = globalManager.kCreator:newKUINode(false);
+	local layerGo = UnityEngine.GameObject(layer);
+	local rect = layerGo:AddComponent(typeof(UnityEngine.RectTransform));
+	-- node:setGoTrans(layerGo);
+	rect:SetParent(parent, false);
+	rect.pivot = Vector2(0,1);
+	rect.anchorMin = Vector2(0,1);
+	rect.anchorMax = Vector2(0,1);
+	rect.offsetMin = Vector2.zero;
+	rect.offsetMax = Vector2.zero;
+	rect.sizeDelta = Vector2(720, self.canvas_height);
+	rect.anchoredPosition3D = Vector3(0, 0, zPosition);
+	return layerGo, rect;
 end

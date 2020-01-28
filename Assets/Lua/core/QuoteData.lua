@@ -20,9 +20,6 @@ function QuoteData:isSame(cb,target)
 	return self.callback == cb and self.target == target;
 end
 
-function QuoteData:poolReset()
-	self:doClear();
-end
 
 function QuoteData:poolDispose()
 	self:doClear();

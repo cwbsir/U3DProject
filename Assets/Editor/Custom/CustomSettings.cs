@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using LuaInterface;
@@ -149,7 +152,59 @@ public static class CustomSettings
         _GT(typeof(BlendWeights)),           
         _GT(typeof(RenderTexture)),
         _GT(typeof(Resources)),     
-        _GT(typeof(LuaProfiler)),
+       
+        //添加的类注册        
+        //for LuaFramework
+        _GT(typeof(RectTransform)),
+        // _GT(typeof(Text)),
+        // _GT(typeof(ContentSizeFitter)),
+        // _GT(typeof(ContentSizeFitter.FitMode)),
+        //
+        _GT(typeof(EventSystem)),
+        _GT(typeof(PointerEventData)),
+        _GT(typeof(RaycastResult)),
+        _GT(typeof(List<RaycastResult>)),
+        _GT(typeof(UnityEvent)),
+        _GT(typeof(UnityEventBase)),
+        _GT(typeof(UnityEvent<int>)),
+        _GT(typeof(StandaloneInputModule)),
+        _GT(typeof(Canvas)),
+        _GT(typeof(RenderMode)),
+        // _GT(typeof(CanvasScaler)),
+        // _GT(typeof(CanvasScaler.ScaleMode)),
+        // _GT(typeof(GraphicRaycaster)),
+        // _GT(typeof(Button)),
+        // _GT(typeof(Button.ButtonClickedEvent)),
+        // _GT(typeof(Image)),
+        
+        // _GT(typeof(InputField)),
+        // _GT(typeof(InputField.OnChangeEvent)),
+        // _GT(typeof(InputField.SubmitEvent)),
+        // _GT(typeof(InputField.LineType)),
+        //  _GT(typeof(InputField.ContentType)),
+        // _GT(typeof(Toggle.ToggleEvent)),
+        // _GT(typeof(Dropdown.DropdownEvent)),
+
+        // _GT(typeof(Mask)),
+        // _GT(typeof(ScrollRect)),
+        // _GT(typeof(ScrollRect.MovementType)),
+        _GT(typeof(Sprite)),
+        // _GT(typeof(Image.Type)),
+        // _GT(typeof(Image.FillMethod)),
+        // _GT(typeof(Image.OriginHorizontal)),
+        // _GT(typeof(Image.OriginVertical)),
+        // _GT(typeof(Image.Origin90)),
+        // _GT(typeof(Image.Origin180)),
+        // _GT(typeof(Image.Origin360)),
+        
+        _GT(typeof(Rect)),
+        _GT(typeof(Color)),
+        _GT(typeof(FontStyle)),
+        _GT(typeof(TextAnchor)),
+        _GT(typeof(HorizontalWrapMode)),
+        _GT(typeof(VerticalWrapMode)),
+        // _GT(typeof(ClickArea)),
+        _GT(typeof(AnimatorStateInfo)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

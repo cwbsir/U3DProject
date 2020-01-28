@@ -29,10 +29,11 @@ public class Driver:MonoBehaviour
         DelegateFactory.Init();
         LuaCoroutine.Register(lua, this);
 
-        lua.Start();
 
-        string fullPath = Application.dataPath + "\\Lua";
-        lua.AddSearchPath(fullPath);        
+        lua.AddSearchPath(Application.dataPath + "/Lua");        
+        lua.AddSearchPath(Application.dataPath + "/ToLua/Lua");
+
+        lua.Start();
 
         lua.DoFile("Main.lua");
 

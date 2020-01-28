@@ -1,12 +1,9 @@
 {
 	"headList" : [
-		"define.lua",
-		"exception.lua",
-		"functions.lua",
-		"GameStart.lua",
 		
 		"core/Clone.lua",
 		"core/Class.lua",
+		"core/functions.lua",
 		"core/EventDispatcher.lua",
 
 		"ui/KCreator.lua",
@@ -14,7 +11,8 @@
 		"ui/Label.lua",
 		"ui/Image.lua",
 
-		"UIManager.lua"
+		"GlobalData.lua",
+		"UIManager.lua",
 		"GlobalConst.lua"
 		"TickManager.lua",
 		"GlobalManager.lua",

@@ -1,3 +1,4 @@
+globalData = nil;
 globalConst = nil;
 globalManager = nil;
 
@@ -8,11 +9,23 @@ function main()
 
 	require("ImportClient");
 
+	globalData = GlobalData:new();
 	globalConst = GobalConst:new();
 	globalManager = GlobalManager:new();
 
 	globalConst:init();
 	globalManager:init();
+
+
+	startGame();
+end
+
+function startGame()
+	print("startGame");
+	local node = globalManager.kCreator:createNode();
+	node:setSize(100,100);
+	node:setPosition(5,50);
+	node:setParent(globalManager.uiManager.mainTransform);
 end
 
 function tickFunc(deltaTime)

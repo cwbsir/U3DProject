@@ -19,8 +19,7 @@ function class(classname, super)
     end
 
     cls.new = function(_,...)
-        local instance;
-        instance = {};
+        local instance = {};
         setmetatableindex(instance, cls);
         instance.class = cls;
         if(instance.ctor ~= nil)then

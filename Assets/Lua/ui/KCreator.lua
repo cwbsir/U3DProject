@@ -12,3 +12,19 @@ function KCreator:ctor()
 	self.pivotPoint7 = Vector2.New(1,0);		--bottomRight
 	self.pivotPoint8 = Vector2.New(0.5,0);		--bottomCenter
 end
+
+function KCreator:createNode(name,isPool)
+	local node,isNew = globalManager.poolManager:createNode(isPool);
+	if isNew then
+		local object = newObject(name)
+		node:setObject(object);
+	else
+		node:setName(name);
+		node:show();
+	end
+
+	node:setPivot(self.pivotPoint0);
+	node:setAnchor(self.pivotPoint1,self.pivotPoint1);
+
+	return node;
+end

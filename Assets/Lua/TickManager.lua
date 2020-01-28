@@ -19,7 +19,7 @@ end
 function TickManager:addTick(cb,target)
 	local index = self:containTick(cb,target,self._ticks);
 	if(index == -1)then
-		local qd = QuoteData:new();
+		local qd = globalManager.poolManager:createQuoteData();
 		qd:init(cb,target);
 		qd.flag = 1;
 		table.insert(self._ticks,qd);

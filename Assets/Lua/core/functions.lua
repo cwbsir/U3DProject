@@ -1,1 +1,3 @@
-print("hello world");
+function newObject(name)
+	return UnityEngine.GameObject(name);
+end
