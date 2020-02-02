@@ -14,6 +14,7 @@ function KCreator:ctor()
 end
 
 function KCreator:createNode(name,isPool)
+	name = name or "Node";
 	local node,isNew = globalManager.poolManager:createNode(isPool);
 	if isNew then
 		local object = newObject(name)
@@ -27,4 +28,41 @@ function KCreator:createNode(name,isPool)
 	node:setAnchor(self.pivotPoint1,self.pivotPoint1);
 
 	return node;
+end
+
+function KCreator:createLabel(fontSize,name,isPool)
+	name = name or "Label";
+	local label,isNew = globalManager.poolManager:createLabel(isPool);
+	if isNew then
+		local object = newObject(name)
+		label:setObject(object);
+	else
+		label:setName(name);
+		label:show();
+	end
+	-- label:setSize(0,0,true,true);
+	label:setFontSize(fontSize or 20);
+	label:setLineSpacing(1);
+	label:setFontStyle(UnityEngine.FontStyle.BoldAndItalic);
+	label:setPivot(self.pivotPoint0);
+	label:setAnchor(self.pivotPoint1,self.pivotPoint1);
+
+	return label;
+end
+
+function KCreator:createImage(name,isPool)
+	name = name or "Image";
+	local image,isNew = globalManager.poolManager:createImage(isPool);
+	if isNew then
+		local object = newObject(name)
+		image:setObject(object);
+	else
+		image:setName(name);
+		image:show();
+	end
+
+	image:setPivot(self.pivotPoint0);
+	image:setAnchor(self.pivotPoint1,self.pivotPoint1);
+
+	return image;
 end

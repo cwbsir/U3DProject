@@ -18,8 +18,18 @@ function UIManager:ctor()
 end
 
 function UIManager:init()
+	self:createEventSystem();
 	self:createCanvas();
 	self:createCanvasLayer();
+end
+
+function UIManager:createEventSystem()
+	local go = UnityEngine.GameObject("EventSystem");
+	UnityEngine.Object.DontDestroyOnLoad(go);
+	self.eventSystem = go:AddComponent(typeof(UnityEngine.EventSystems.EventSystem));
+	self.eventSystem.sendNavigationEvents = false;
+	self.eventSystem.pixelDragThreshold = 15;
+	go:AddComponent(typeof(UnityEngine.EventSystems.StandaloneInputModule));
 end
 
 function UIManager:createCanvas()

@@ -11,7 +11,10 @@ require "core/Clone"
 require "GlobalManager"
 require "CameraManager"
 
+require "AssetLoader"
 require "GlobalConst"
+require "LoaderManager"
+require "StartController"
 require "TickManager"
 
 require "common/LayerConst"

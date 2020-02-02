@@ -34,5 +34,5 @@ function QuoteData:doClear()
 end
 
 function QuoteData:dispose()
-	globalManager.poolManager:putQuoteData(self);
+	globalManager.poolManager:putItem(self);
 end

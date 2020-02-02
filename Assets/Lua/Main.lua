@@ -2,6 +2,8 @@ globalData = nil;
 globalConst = nil;
 globalManager = nil;
 
+startController = nil;
+
 
 --主入口函数。从这里开始lua逻辑
 function main()					
@@ -17,20 +19,18 @@ function main()
 	globalManager:init();
 
 
-	startGame();
+	startController = StartController:new();
+	startController:startLoad();
+
 end
 
-function startGame()
-	print("startGame");
-	local node = globalManager.kCreator:createNode();
-	node:setSize(100,100);
-	node:setPosition(5,50);
-	node:setParent(globalManager.uiManager.mainTransform);
+function onGuiFunc()
+	globalManager.tickManager:update(deltaTime)
 end
 
 function tickFunc(deltaTime)
 	-- print("deltaTime=",deltaTime);
-	globalManager.tickManager:update(deltaTime)
+	-- globalManager.tickManager:update(deltaTime)
 end
 
 function fixedTickFunc(deltaTime)

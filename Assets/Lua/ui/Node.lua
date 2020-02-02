@@ -10,18 +10,21 @@ function Node:ctor()
 end
 
 function Node:setObject(object)
-	print("Node:setObject11");
 	self.go = object;
 	self.transform = self.go:GetComponent(typeof(UnityEngine.RectTransform));
 	if self.transform == nil then
-		print("Node:setObject222");
 		self.transform = self.go:AddComponent(typeof(UnityEngine.RectTransform));
 		self.transform.pivot = globalManager.kCreator.pivotPoint0;
 		self.transform.anchorMax = globalManager.kCreator.pivotPoint1;
 		self.transform.anchorMin = globalManager.kCreator.pivotPoint1;
 	end
+
+	self:createComponent();
 end
 
+function Node:createComponent()
+
+end
 
 function Node:addNode(uiNode)
 	if(self.transform == nil or uiNode == nil)then return; end

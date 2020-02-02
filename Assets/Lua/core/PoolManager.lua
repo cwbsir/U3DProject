@@ -7,12 +7,17 @@ function PoolManager:ctor()
 	self.vector3List = {};
 
 	self.uiNodeList = {};
+	self.uiLabelList = {};
+	self.uiImageList = {};
 
 	self.quoteDataList = {};
 	
 
 	self.types = {};
 	self.types["Node"] = {Node,self.uiNodeList,10}; 
+	self.types["Label"] = {Label,self.uiLabelList,10};
+	self.types["Image"] = {Image,self.uiImageList,10};
+	
 
 	self.types["QuoteData"] = {QuoteData,self.quoteDataList,0};
 	-- self.types["DownloadItem"] = {DownloadItem,self.downloadItemList,100};
@@ -87,6 +92,15 @@ end
 function PoolManager:createNode(usePool)
 	return self:createItem(usePool,"Node");
 end
+
+function PoolManager:createLabel(usePool)
+	return self:createItem(usePool,"Label");
+end
+
+function PoolManager:createImage(usePool)
+	return self:createItem(usePool,"Image");
+end
+
 
 function PoolManager:createQuoteData(usePool)
 	return self:createItem(usePool,"QuoteData");
