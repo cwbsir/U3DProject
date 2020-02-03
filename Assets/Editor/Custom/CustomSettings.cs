@@ -210,6 +210,9 @@ public static class CustomSettings
         _GT(typeof(VerticalWrapMode)),
         // _GT(typeof(ClickArea)),
         _GT(typeof(AnimatorStateInfo)),
+
+        //自定义类
+        _GT(typeof(TouchTrigger)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

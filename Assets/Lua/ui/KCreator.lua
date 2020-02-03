@@ -34,16 +34,16 @@ function KCreator:createLabel(fontSize,name,isPool)
 	name = name or "Label";
 	local label,isNew = globalManager.poolManager:createLabel(isPool);
 	if isNew then
-		local object = newObject(name)
+		local object = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["Text"]);
 		label:setObject(object);
 	else
-		label:setName(name);
 		label:show();
 	end
-	-- label:setSize(0,0,true,true);
-	label:setFontSize(fontSize or 20);
+	label:setName(name);
 	label:setLineSpacing(1);
-	label:setFontStyle(UnityEngine.FontStyle.BoldAndItalic);
+	label:setSize(100,100,true,true);
+	label:setFontSize(fontSize or 20);
+	label:setFontStyle(UnityEngine.FontStyle.Normal);
 	label:setPivot(self.pivotPoint0);
 	label:setAnchor(self.pivotPoint1,self.pivotPoint1);
 

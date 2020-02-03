@@ -7,6 +7,16 @@ function Node:ctor()
 	self._isShow = true;
 	self.transform = nil;
 	self.component = nil;
+
+	self._cbTarget = nil;
+	self._clickCB = nil;
+	self._downCB = nil;
+	self._upCB = nil;
+	self._beginDrag = nil;
+	self._drag = nil;
+	self._endDrag = nil;
+	self._param1 = nil;
+	self._param2 = nil;
 end
 
 function Node:setObject(object)
@@ -30,6 +40,92 @@ function Node:addNode(uiNode)
 	if(self.transform == nil or uiNode == nil)then return; end
 	if uiNode.transform ~= nil then
 		uiNode:setParent(uiNode.transform);
+	end
+end
+
+function Node:setTouchEnabled(v)
+	if(self.component == nil or self.component.raycastTarget == vWW)then
+		return;
+	end
+	self.component.raycastTarget = v;
+end
+
+--paramType默认为0，不传参，1回调x,y，2回调eventData
+function Node:addTouchCallBack(clickCB,target,downCB,upCB,paramType)
+	if(clickCB == nil and downCB == nil and upCB == nil)then return end;
+	self._cbTarget = target;
+	self._clickCB = clickCB;
+	self._downCB = downCB;
+	self._upCB = upCB;
+	self:addTouchMouseTrigger(paramType);
+end
+
+function Node:addTouchMouseTrigger(paramType)
+	if(self._mouseTrigger == nil)then
+		self:setTouchEnabled(true);
+		self._mouseTrigger = self.go:AddComponent(typeof(TouchTrigger));
+		self._mouseTrigger:setTouchEnabled(true);
+		if(paramType ~= nil and paramType ~= 0)then
+			self._mouseTrigger:setParamStyle(paramType);
+		end
+	end
+	print("Node:addTouchMouseTrigger");
+	self._mouseTrigger:setLuaCallback(self.clickHandler,self,self.downHandler,self.upHandler);
+end
+
+function Node:clickHandler(self,param1,param2)
+	print("Node:clickHandler");
+	if(self._clickCB ~= nil)then
+		self._clickCB(self._cbTarget,self,param1,param2);
+	end
+end
+
+function Node:downHandler(self,param1,param2)
+	self._param1 = param1;
+	self._param2 = param2;
+	if(self._downCB ~= nil)then
+		self._downCB(self._cbTarget,self,param1,param2);
+	end
+end
+function Node:upHandler(self,param1,param2)
+	self._param1 = nil;
+	self._param2 = nil;
+	if(self._upCB ~= nil)then
+		self._upCB(self._cbTarget,self,param1,param2);
+	end
+end
+
+function Node:addDragCallBack(target,beginDrag,drag,endDrag,paramType)
+	if(self._mouseTrigger == nil)then
+		self:setTouchEnabled(true);
+		self._mouseTrigger = self.go:AddComponent(typeof(DragTrigger));
+		self._mouseTrigger:setTouchEnabled(true);
+		if(paramType ~= nil and paramType ~= 0)then
+			self._mouseTrigger:setParamStyle(paramType);
+		end
+		if(beginDrag ~= nil or drag ~= nil or endDrag ~= nil)then
+			self._cbTarget = target;
+			self._beginDrag = beginDrag;
+			self._drag = drag;
+			self._endDrag = endDrag;
+			self._mouseTrigger:setLuaCallback(nil,self,self.beginDragHandler,self.endDragHandler,nil,self.dragHandler);
+		end
+	end
+end
+
+function Node:beginDragHandler(self,param1,param2)
+	if(self._beginDrag ~= nil)then
+		self._beginDrag(self._cbTarget,self,param1,param2);
+	end
+end
+function Node:dragHandler(self,param1,param2)
+	if(self._drag ~= nil)then
+		self._drag(self._cbTarget,self,param1,param2);
+	end
+end
+function Node:endDragHandler(self,param1,param2)
+	if(self._endDrag ~= nil)then
+		self._endDrag(self._cbTarget,self,param1,param2);
 	end
 end
 
@@ -129,6 +225,17 @@ end
 function Node:doClear()
 	self._isShow = true;
 	self.component = nil;
+
+	self._cbTarget = nil;
+	self._clickCB = nil;
+	self._downCB = nil;
+	self._upCB = nil;
+	self._beginDrag = nil;
+	self._drag = nil;
+	self._endDrag = nil;
+	self._param1 = nil;
+	self._param2 = nil;
+	
 	if self._size ~= nil then
 		globalManager.poolManager:putVector2(self._size);
 		self._size = nil;

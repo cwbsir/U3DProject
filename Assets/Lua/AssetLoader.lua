@@ -16,7 +16,6 @@ function AssetLoader:ctor(abName)
 end
 
 function AssetLoader:doLoad()
-	print("AssetLoader:doLoad");
 	if(self.loadState == 0)then
 		self.loadState = 1;
 		StartCoroutine(function() self:__load(); end);
@@ -24,11 +23,8 @@ function AssetLoader:doLoad()
 end
 
 function AssetLoader:__load()
-	print("AssetLoader:__load1");
 	local download = nil;
-	-- local resPath = UnityEngine.Application.streamingAssetsPath.."/"..self.abName;
-
-	local resPath = self.abName;
+	local resPath = UnityEngine.Application.streamingAssetsPath.."/"..self.abName;
 
 	if self.loadType == 0 then
 		download = UnityEngine.AssetBundle.LoadFromFileAsync(resPath);
@@ -37,7 +33,6 @@ function AssetLoader:__load()
 	end
 
 	Yield(download);
-	print("AssetLoader:__load2",resPath);
 	if(self.loadType ~= 0 and download.error ~= "" and download.error ~= nil)then
 		print("加载出错了",download.error,resPath);
 	else
@@ -97,7 +92,6 @@ function AssetLoader:hasCB(callback,target)
 end
 
 function AssetLoader:loadComplete()
-	print("AssetLoader:loadComplete");
 	self.loadState = 2;
 	local len = #self._cbs;
 	for i = 1,len,1 do
@@ -107,7 +101,6 @@ function AssetLoader:loadComplete()
 end
 
 function AssetLoader:doCallBack(qd)
-	print("AssetLoader:doCallBack");
 	if self.loadType == 0 then
 		qd.callback(qd.target,self.abName,qd.params,self.abContent);
 	elseif self.loadType == 1 then
