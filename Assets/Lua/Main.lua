@@ -14,6 +14,7 @@ function main()
 	globalConst = GobalConst:new();
 	globalManager = GlobalManager:new();
 
+
 	globalConst:init();
 	globalManager:init();
 
