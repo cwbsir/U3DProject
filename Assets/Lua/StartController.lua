@@ -32,13 +32,14 @@ end
 function StartController:startGame()
 	print("startGame");
 
-	local image = globalManager.kCreator:createImage();	image:setPath("bg.jpg");
+	local image = globalManager.kCreator:createButton();	
+	image:setPath("bg.jpg");
 	image:setPosition(globalManager.uiManager.PANEL_WIDTH/2,-globalManager.uiManager.PANEL_HEIGHT/2);
 	image:addTouchCallBack(self.btnClickHandler,self);
 	image:setParent(globalManager.uiManager.mainTransform);
 
-	local label = globalManager.kCreator:createLabel();
-	label:setPosition(50,-50);
+	local label = globalManager.kCreator:createInputLabel();
+	label:setPosition(100,-50);
 	label:setString("hello,cwbsir!!");
 	label:setParent(globalManager.uiManager.mainTransform);
 end

@@ -69,12 +69,10 @@ function Node:addTouchMouseTrigger(paramType)
 			self._mouseTrigger:setParamStyle(paramType);
 		end
 	end
-	print("Node:addTouchMouseTrigger");
 	self._mouseTrigger:setLuaCallback(self.clickHandler,self,self.downHandler,self.upHandler);
 end
 
 function Node:clickHandler(self,param1,param2)
-	print("Node:clickHandler");
 	if(self._clickCB ~= nil)then
 		self._clickCB(self._cbTarget,self,param1,param2);
 	end
@@ -153,6 +151,23 @@ function Node:setVisible(bShow)
 	else
 		self:hide();
 	end
+end
+
+function Node:getScale()
+	if(self._scale == nil)then
+		local scale = self.transform.localScale;
+		self._scale = globalManager.poolManager:createVector3(scale.x,scale.y,scale.z);
+	end
+	return self._scale;
+end
+
+function Node:setScale(x,y,z)
+	self._scale = self:getScale();
+	if(self._scale.x == x and self._scale.y == y and self._scale.z == z)then return; end
+	if(x ~= nil)then self._scale.x = x; end
+	if(y ~= nil)then self._scale.y = y; end
+	if(z ~= nil)then self._scale.z = z; end
+	self.transform.localScale = self._scale;
 end
 
 function Node:show()

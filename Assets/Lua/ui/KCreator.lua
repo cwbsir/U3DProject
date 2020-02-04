@@ -66,3 +66,38 @@ function KCreator:createImage(name,isPool)
 
 	return image;
 end
+
+function KCreator:createButton(name,isPool)
+	name = name or "Button";
+	local button,isNew = globalManager.poolManager:createButton(isPool);
+	if isNew then
+		local object = newObject(name)
+		button:setObject(object);
+	else
+		button:setName(name);
+		button:show();
+	end
+
+	button:setPivot(self.pivotPoint0);
+	button:setAnchor(self.pivotPoint1,self.pivotPoint1);
+
+	return button;
+end
+
+--创建输入文本
+function KCreator:createInputLabel(name)
+	name = name or "InputLabel";
+	local object = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["InputField"]);
+	object.name = name;
+
+	local inputLabel = InputLabel:new();
+	inputLabel:setObject(object);
+	inputLabel:setPivot(self.pivotPoint0);
+	inputLabel:setAnchor(self.pivotPoint1,self.pivotPoint1);
+	inputLabel:setAlign(UnityEngine.TextAnchor.MiddleCenter);
+	inputLabel:setHOverflow(UnityEngine.HorizontalWrapMode.Overflow);
+	inputLabel:setVOverflow(UnityEngine.VerticalWrapMode.Overflow);
+	inputLabel:setColor(globalConst.colorConst.black);
+	inputLabel:setFontSize(20);
+	return inputLabel;
+end

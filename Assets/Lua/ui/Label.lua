@@ -16,7 +16,20 @@ function Label:createComponent()
 	self.component.color.a = 1;
 end
 
-
+function Label:setColor(color,opacity)
+	local isChange = false;
+	if(color == nil)then
+		self._color = clone(self.component.color);
+	else
+		isChange = true;
+		self._color = clone(color);
+	end
+	if(opacity ~= nil and self._color.a ~= opacity)then
+		isChange = true;
+		self._color.a = opacity;
+	end
+	if(isChange)then self.component.color = self._color; end
+end
 
 
 function Label:setString(str)
@@ -44,27 +57,27 @@ function Label:setFontStyle(style)
 	self.component.fontStyle = style;
 end
 
---globalConst.uiConst.anchorType.UpperLeft
---globalConst.uiConst.anchorType.UpperCenter
---globalConst.uiConst.anchorType.UpperRight
---globalConst.uiConst.anchorType.MiddleLeft
---globalConst.uiConst.anchorType.MiddleCenter
---globalConst.uiConst.anchorType.MiddleRight
---globalConst.uiConst.anchorType.LowerLeft
---globalConst.uiConst.anchorType.LowerCenter
---globalConst.uiConst.anchorType.LowerRight
+-- UnityEngine.TextAnchor.UpperLeft;
+-- UnityEngine.TextAnchor.UpperCenter;
+-- UnityEngine.TextAnchor.UpperRight;
+-- UnityEngine.TextAnchor.MiddleLeft;
+-- UnityEngine.TextAnchor.MiddleCenter;
+-- UnityEngine.TextAnchor.MiddleRight;
+-- UnityEngine.TextAnchor.LowerLeft;
+-- UnityEngine.TextAnchor.LowerCenter;
+-- UnityEngine.TextAnchor.LowerRight;
 function Label:setAlign(align)
 	self.component.alignment = align;
 end
 
---globalConst.uiConst.hWrapMode.Wrap(换行)
---globalConst.uiConst.hWrapMode.Overflow(强行超出)
+--UnityEngine.HorizontalWrapMode.Wrap(换行)
+--UnityEngine.HorizontalWrapMode.Overflow(强行超出)
 function Label:setHOverflow(overflow)
 	self.component.horizontalOverflow = overflow;
 end
 
---globalConst.uiConst.vWrapMode.Truncate(不显示)
---globalConst.uiConst.vWrapMode.Overflow(强行超出)
+--UnityEngine.VerticalWrapMode.Truncate(不显示)
+--UnityEngine.VerticalWrapMode.Overflow强行超出)
 function Label:setVOverflow(overflow)
 	self.component.verticalOverflow = overflow;
 end

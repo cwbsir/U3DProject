@@ -72,7 +72,7 @@ function UIManager:newCanvas(name,camera,planeDistance,sortingOrder,layer,index)
 	-- else
 	-- 	scaler.matchWidthOrHeight = 0;
 	-- end
-	-- go:AddComponent(typeof(UnityEngine.UI.GraphicRaycaster));
+	go:AddComponent(typeof(UnityEngine.UI.GraphicRaycaster));
 	go.layer = layer;
 	return go;
 end

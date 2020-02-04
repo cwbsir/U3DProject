@@ -10,6 +10,8 @@
 		"ui/Node.lua",
 		"ui/Label.lua",
 		"ui/Image.lua",
+		"ui/Button.lua",
+		"ui/InputLabel.lua",
 
 		"GlobalData.lua",
 		"UIManager.lua",
@@ -17,6 +19,8 @@
 		"TickManager.lua",
 		"GlobalManager.lua",
 		"CameraManager.lua",
+		"ColorConst.lua",
+
 	
 	],
 	"exceptList" : [

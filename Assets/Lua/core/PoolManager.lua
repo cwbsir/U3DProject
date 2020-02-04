@@ -9,6 +9,7 @@ function PoolManager:ctor()
 	self.uiNodeList = {};
 	self.uiLabelList = {};
 	self.uiImageList = {};
+	self.uiButtonList = {};
 
 	self.quoteDataList = {};
 	
@@ -17,6 +18,8 @@ function PoolManager:ctor()
 	self.types["Node"] = {Node,self.uiNodeList,10}; 
 	self.types["Label"] = {Label,self.uiLabelList,10};
 	self.types["Image"] = {Image,self.uiImageList,10};
+	self.types["Button"] = {Button,self.uiImageList,10};
+
 	
 
 	self.types["QuoteData"] = {QuoteData,self.quoteDataList,0};
@@ -89,6 +92,10 @@ function PoolManager:putItem(item)
 	end
 end
 
+function PoolManager:createQuoteData(usePool)
+	return self:createItem(usePool,"QuoteData");
+end
+
 function PoolManager:createNode(usePool)
 	return self:createItem(usePool,"Node");
 end
@@ -101,9 +108,12 @@ function PoolManager:createImage(usePool)
 	return self:createItem(usePool,"Image");
 end
 
+function PoolManager:createImage(usePool)
+	return self:createItem(usePool,"Image");
+end
 
-function PoolManager:createQuoteData(usePool)
-	return self:createItem(usePool,"QuoteData");
+function PoolManager:createButton(usePool)
+	return self:createItem(usePool,"Button");
 end
 
 function PoolManager:createVector2(x,y)

@@ -17,10 +17,6 @@ public class Driver:MonoBehaviour
 
     public int targetFrameRate = 10;
 
-    private GameObject obj;
-    private UnityEngine.Font font;
-    private UnityEngine.UI.Text component;
-
     void Start()
     {
         
@@ -35,9 +31,6 @@ public class Driver:MonoBehaviour
         DelegateFactory.Init();
         LuaCoroutine.Register(lua, this);
 
-        font = new UnityEngine.Font("Arial");
-        Debug.Log("==================="+font.fontSize);
-
         lua.AddSearchPath(Application.dataPath + "/Lua");        
         lua.AddSearchPath(Application.dataPath + "/ToLua/Lua");
 
@@ -51,14 +44,7 @@ public class Driver:MonoBehaviour
         start = null;
 
         tickFunc = lua.GetFunction("tickFunc");
-        onGuiFunc = lua.GetFunction("onGuiFunc");
         fixedTickFunc = lua.GetFunction("fixedTickFunc");
-
-        obj = new GameObject("label11");
-        obj.AddComponent(typeof(UnityEngine.RectTransform));
-        component = (UnityEngine.UI.Text)obj.AddComponent(typeof(UnityEngine.UI.Text));
-        component.text = "Hello World!!";
-
 
         m_LastUpdateShowTime = Time.realtimeSinceStartup;
     }
@@ -78,11 +64,6 @@ public class Driver:MonoBehaviour
         m_LastUpdateShowTime = Time.realtimeSinceStartup;
     }
 
-    void OnGUI()
-    {
-        component.font = font;
-        onGuiFunc.Call();
-    }
 
     void FixedUpdate()
     {

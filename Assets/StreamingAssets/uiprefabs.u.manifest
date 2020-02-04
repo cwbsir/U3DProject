@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3427254797
+CRC: 736319957
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0da4e5a9ec64dd403a57f1530b0078bc
+    Hash: c186478bba3dec44befe0fb2775512b3
   TypeTreeHash:
     serializedVersion: 2
-    Hash: d254825b1c862740de6d44070e557cc4
+    Hash: 114822378cc3ec018e854b969b7d97d3
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -18,15 +18,22 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 575553740, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
   Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
+  Script: {instanceID: 0}
+- Class: 213
   Script: {instanceID: 0}
 - Class: 222
   Script: {instanceID: 0}
 - Class: 224
   Script: {instanceID: 0}
 Assets:
+- Assets/Prefabs/InputField.prefab
 - Assets/Prefabs/Text.prefab
 Dependencies: []

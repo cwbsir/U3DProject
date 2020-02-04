@@ -6,10 +6,13 @@ require "core/Clone"
 require "ui/Node"
 require "ui/Label"
 require "ui/Image"
+require "ui/Button"
+require "ui/InputLabel"
 require "GlobalData"
 require "UIManager"
 require "GlobalManager"
 require "CameraManager"
+require "ColorConst"
 
 require "AssetLoader"
 require "GlobalConst"

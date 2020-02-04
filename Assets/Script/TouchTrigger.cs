@@ -94,7 +94,6 @@ public class TouchTrigger : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("OnPointerClick");
         if(_touchEnabled)
         {
             if (_doubleClick == null)
@@ -150,7 +149,6 @@ public class TouchTrigger : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-         Debug.Log("OnPointerDown");
         if (_touchEnabled && _downCB != null)
         {
             if(_paramStyle == 0)
@@ -165,7 +163,6 @@ public class TouchTrigger : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-         Debug.Log("OnPointerUp");
         if(_touchEnabled && _upCB != null)
         {
             if(_paramStyle == 0)

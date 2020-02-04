@@ -176,7 +176,7 @@ public static class CustomSettings
         _GT(typeof(RenderMode)),
         // _GT(typeof(CanvasScaler)),
         // _GT(typeof(CanvasScaler.ScaleMode)),
-        // _GT(typeof(GraphicRaycaster)),
+        _GT(typeof(GraphicRaycaster)),
         _GT(typeof(Button)),
         _GT(typeof(Button.ButtonClickedEvent)),
         _GT(typeof(Image)),
