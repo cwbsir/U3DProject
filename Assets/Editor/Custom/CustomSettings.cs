@@ -213,6 +213,7 @@ public static class CustomSettings
 
         //自定义类
         _GT(typeof(TouchTrigger)),
+        _GT(typeof(LinkImageText)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

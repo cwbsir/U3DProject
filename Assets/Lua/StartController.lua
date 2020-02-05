@@ -17,11 +17,18 @@ end
 
 function StartController:loadUIPrefabsComplete(abName,assetName,abcontent)
 	globalData.uiPrefabs = parseABContent(abcontent);
+	
+	globalManager.loaderManager:loadAsset("font.u",self.loadFontComplete,self);
+end
+
+function StartController:loadFontComplete(abName,assetName,abcontent)
+	globalData.defaultFont = abcontent:LoadAsset("yhFont.ttf");
+	
 	self:startGame();
 end
 
 function StartController:loadComplete(abName,assetName,abcontent)
-	-- globalData.defaultFont = abcontent:LoadAsset("Asterix-Blink.ttf");
+	
 	-- print(typeof(globalData.defaultFont));
 	local destList = parseABContent(abcontent);
 	--  = destList["Asterix-Blink.ttf"];
@@ -38,9 +45,10 @@ function StartController:startGame()
 	image:addTouchCallBack(self.btnClickHandler,self);
 	image:setParent(globalManager.uiManager.mainTransform);
 
-	local label = globalManager.kCreator:createInputLabel();
+	local label = globalManager.kCreator:createRichLabel();
 	label:setPosition(100,-50);
-	label:setString("hello,cwbsir!!");
+
+	label:setString("你是&#6$602$2$<color=#fb5657>没下划线点击</color>$81$0$0$0#&哈&#6$602$3$<color=#fb5657>下划线点击</color>$91$0$0$0#&吗");
 	label:setParent(globalManager.uiManager.mainTransform);
 end
 

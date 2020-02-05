@@ -64,9 +64,10 @@
      <Compile Include="Assets\MyTest\RayTest.cs" />
      <Compile Include="Assets\MyTest\spin.cs" />
      <Compile Include="Assets\MyTest\TestGUI.cs" />
-     <Compile Include="Assets\Script\ClickObject.cs" />
+     <Compile Include="Assets\Script\LinkImageText.cs" />
      <Compile Include="Assets\Script\TouchTrigger.cs" />
      <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
+     <Compile Include="Assets\Source\Generate\LinkImageTextWrap.cs" />
      <Compile Include="Assets\Source\Generate\LuaBinder.cs" />
      <Compile Include="Assets\Source\Generate\LuaInterface_DebuggerWrap.cs" />
      <Compile Include="Assets\Source\Generate\LuaInterface_InjectTypeWrap.cs" />
