@@ -43,6 +43,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Events.UnityAction<bool>), factory.UnityEngine_Events_UnityAction_bool);
 		dict.Add(typeof(UnityEngine.Font.FontTextureRebuildCallback), factory.UnityEngine_Font_FontTextureRebuildCallback);
 		dict.Add(typeof(System.Action<UnityEngine.Font>), factory.System_Action_UnityEngine_Font);
+		dict.Add(typeof(System.Func<string,UnityEngine.GameObject>), factory.System_Func_string_UnityEngine_GameObject);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
 		DelegateTraits<UnityEngine.Events.UnityAction>.Init(factory.UnityEngine_Events_UnityAction);
@@ -70,6 +71,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Events.UnityAction<bool>>.Init(factory.UnityEngine_Events_UnityAction_bool);
 		DelegateTraits<UnityEngine.Font.FontTextureRebuildCallback>.Init(factory.UnityEngine_Font_FontTextureRebuildCallback);
 		DelegateTraits<System.Action<UnityEngine.Font>>.Init(factory.System_Action_UnityEngine_Font);
+		DelegateTraits<System.Func<string,UnityEngine.GameObject>>.Init(factory.System_Func_string_UnityEngine_GameObject);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
 		TypeTraits<UnityEngine.Events.UnityAction>.Init(factory.Check_UnityEngine_Events_UnityAction);
@@ -97,6 +99,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Events.UnityAction<bool>>.Init(factory.Check_UnityEngine_Events_UnityAction_bool);
 		TypeTraits<UnityEngine.Font.FontTextureRebuildCallback>.Init(factory.Check_UnityEngine_Font_FontTextureRebuildCallback);
 		TypeTraits<System.Action<UnityEngine.Font>>.Init(factory.Check_System_Action_UnityEngine_Font);
+		TypeTraits<System.Func<string,UnityEngine.GameObject>>.Init(factory.Check_System_Func_string_UnityEngine_GameObject);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
 		StackTraits<UnityEngine.Events.UnityAction>.Push = factory.Push_UnityEngine_Events_UnityAction;
@@ -124,6 +127,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Events.UnityAction<bool>>.Push = factory.Push_UnityEngine_Events_UnityAction_bool;
 		StackTraits<UnityEngine.Font.FontTextureRebuildCallback>.Push = factory.Push_UnityEngine_Font_FontTextureRebuildCallback;
 		StackTraits<System.Action<UnityEngine.Font>>.Push = factory.Push_System_Action_UnityEngine_Font;
+		StackTraits<System.Func<string,UnityEngine.GameObject>>.Push = factory.Push_System_Func_string_UnityEngine_GameObject;
 	}
     
     public static Delegate CreateDelegate(Type t, LuaFunction func = null)
@@ -1735,6 +1739,67 @@ public class DelegateFactory
 	}
 
 	void Push_System_Action_UnityEngine_Font(IntPtr L, System.Action<UnityEngine.Font> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Func_string_UnityEngine_GameObject_Event : LuaDelegate
+	{
+		public System_Func_string_UnityEngine_GameObject_Event(LuaFunction func) : base(func) { }
+		public System_Func_string_UnityEngine_GameObject_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public UnityEngine.GameObject Call(string param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			UnityEngine.GameObject ret = (UnityEngine.GameObject)func.CheckObject(typeof(UnityEngine.GameObject));
+			func.EndPCall();
+			return ret;
+		}
+
+		public UnityEngine.GameObject CallWithSelf(string param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			UnityEngine.GameObject ret = (UnityEngine.GameObject)func.CheckObject(typeof(UnityEngine.GameObject));
+			func.EndPCall();
+			return ret;
+		}
+	}
+
+	public System.Func<string,UnityEngine.GameObject> System_Func_string_UnityEngine_GameObject(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Func<string,UnityEngine.GameObject> fn = delegate(string param0) { return null; };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Func_string_UnityEngine_GameObject_Event target = new System_Func_string_UnityEngine_GameObject_Event(func);
+			System.Func<string,UnityEngine.GameObject> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Func_string_UnityEngine_GameObject_Event target = new System_Func_string_UnityEngine_GameObject_Event(func, self);
+			System.Func<string,UnityEngine.GameObject> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Func_string_UnityEngine_GameObject(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Func<string,UnityEngine.GameObject>), L, pos);
+	}
+
+	void Push_System_Func_string_UnityEngine_GameObject(IntPtr L, System.Func<string,UnityEngine.GameObject> o)
 	{
 		ToLua.Push(L, o);
 	}
