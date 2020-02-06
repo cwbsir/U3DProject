@@ -36,11 +36,13 @@ function Node:createComponent()
 
 end
 
+function Node:setParent(parentTransform)
+	self.transform:SetParent(parentTransform,false);
+end
+
 function Node:addNode(uiNode)
 	if(self.transform == nil or uiNode == nil)then return; end
-	if uiNode.transform ~= nil then
-		uiNode:setParent(uiNode.transform);
-	end
+	uiNode:setParent(self.transform);
 end
 
 function Node:setTouchEnabled(v)
@@ -127,10 +129,6 @@ function Node:endDragHandler(self,param1,param2)
 	end
 end
 
-function Node:setParent(parentTransform)
-	self.transform:SetParent(parentTransform,false);
-end
-
 function Node:setZButtom()
 	self.transform:SetAsFirstSibling();
 end
@@ -168,6 +166,12 @@ function Node:setScale(x,y,z)
 	if(y ~= nil)then self._scale.y = y; end
 	if(z ~= nil)then self._scale.z = z; end
 	self.transform.localScale = self._scale;
+end
+
+function Node:setLayer(layer)
+	if self.go ~= nil then
+		self.go.layer = layer;
+	end
 end
 
 function Node:show()

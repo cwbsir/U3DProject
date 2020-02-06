@@ -7,7 +7,6 @@ function UIManager:ctor()
 	self.canvas = nil;
 	self.canvasTransform = nil;
 
-	self.mainNode = nil;
 	self.mainLayer = nil;
 	self.mainTransform = nil;
 
@@ -40,9 +39,9 @@ function UIManager:createCanvas()
 end
 
 function UIManager:createCanvasLayer()
-	-- self.panelLayer, self.panelTransform, self.panelNode = self:createLayer(self.canvasTransform, "PanelLayer", 900);
-	self.mainLayer, self.mainTransform, self.mainNode = self:createLayer(self.canvasTransform, "MainLayer", 1000);
-	self.mainLayer.layer = globalConst.layerConst.UI;
+	self.mainLayer = self:createLayer(self.canvasTransform, "MainLayer", 1000);
+	self.mainTransform = self.mainLayer.transform;
+	self.mainLayer:setLayer(globalConst.layerConst.UI);
 end
 
 
@@ -77,18 +76,15 @@ function UIManager:newCanvas(name,camera,planeDistance,sortingOrder,layer,index)
 	return go;
 end
 
-function UIManager:createLayer(parent, layer, zPosition)
-	-- local node = globalManager.kCreator:newKUINode(false);
-	local layerGo = UnityEngine.GameObject(layer);
-	local rect = layerGo:AddComponent(typeof(UnityEngine.RectTransform));
-	-- node:setGoTrans(layerGo);
-	rect:SetParent(parent, false);
-	rect.pivot = Vector2(0,1);
-	rect.anchorMin = Vector2(0,1);
-	rect.anchorMax = Vector2(0,1);
-	rect.offsetMin = Vector2.zero;
-	rect.offsetMax = Vector2.zero;
-	rect.sizeDelta = Vector2(720, self.canvas_height);
-	rect.anchoredPosition3D = Vector3(0, 0, zPosition);
-	return layerGo, rect;
+function UIManager:createLayer(parent, name, zPosition)
+	local node = globalManager.kCreator:createNode(name);
+	node.transform:SetParent(parent, false);
+	node.transform.pivot = Vector2(0,1);
+	node.transform.anchorMin = Vector2(0,1);
+	node.transform.anchorMax = Vector2(0,1);
+	node.transform.offsetMin = Vector2.zero;
+	node.transform.offsetMax = Vector2.zero;
+	node.transform.sizeDelta = Vector2(720, self.canvas_height);
+	node.transform.anchoredPosition3D = Vector3(0, 0, zPosition);
+	return node;
 end
