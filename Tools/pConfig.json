@@ -12,6 +12,7 @@
 		"ui/Image.lua",
 		"ui/Button.lua",
 		"ui/InputLabel.lua",
+		"ui/ListView.lua",
 
 		"datas/GlobalData.lua",
 		"datas/GlobalConst.lua"

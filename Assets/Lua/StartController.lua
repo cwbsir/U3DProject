@@ -46,10 +46,12 @@ function StartController:startGame()
 	image:setParent(globalManager.uiManager.mainTransform);
 
 	local label = globalManager.kCreator:createRichLabel();
-	label:setPosition(100,-50);
-
+	label:setPosition(100,-50)
 	label:setString("你是&#6$602$2$<color=#fb5657>没下划线点击</color>$81$0$0$0#&哈&#6$602$3$<color=#fb5657>下划线点击</color>$91$0$0$0#&吗");
 	label:setParent(globalManager.uiManager.mainTransform);
+
+	local listView = globalManager.kCreator:createListView(image.transform,"listView");
+	listView:pushBackItem(globalManager.kCreator:createLabel());
 end
 
 function StartController:btnClickHandler(sender)

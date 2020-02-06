@@ -121,3 +121,16 @@ function KCreator:createInputLabel(name)
 	inputLabel:setFontSize(20);
 	return inputLabel;
 end
+
+--创建ListContainer  parentTrans父类transform  contaienr容器 mainNode根节点
+function KCreator:createListView(parentTrans,name)
+	local mainNode = Node:new();
+	local obj = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
+	obj.name = name;
+	mainNode:setObject(obj);
+	mainNode:setParent(parentTrans);
+	local content = obj.transform:Find("Viewport/Content");
+	local contaienr = ListView:new();
+	contaienr:setObject(content.go);
+	return contaienr,mainNode;
+end
