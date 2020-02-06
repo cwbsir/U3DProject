@@ -13,19 +13,24 @@ function ListView:ctor()
 	ListView.super.ctor(self);
 end
 
-function ListView:setObject(gameObject,transform)
-	ListView.super.setGoTrans(self,gameObject,transform);
-	self.component = gameObject:GetComponent(typeof(GameLib.ui.UIScrollContent));
+function ListView:setObject(gameObject)
+	ListView.super.setObject(self,gameObject);
+	self.component = gameObject:GetComponent(typeof(UIScrollContent));
 	local masks = gameObject:GetComponentsInParent(typeof(UnityEngine.UI.Mask), true);
+	print("masks.Length",masks.Length);
 	if masks ~= nil and masks.Length > 0 then
 		self._viewRect = masks[0].transform;
-		self._scrollRect = self._viewRect:GetComponent(typeof(UnityEngine.UI.ScrollRect));
+	end
+
+	local scrollRects = gameObject:GetComponentsInParent(typeof(UnityEngine.UI.ScrollRect), true);
+	if scrollRects ~= nil and scrollRects.Length > 0 then
+		self._scrollRect = scrollRects[0];
 	end
 	self:setVertical(true);
 	
-	if self:getParentGo() ~= nil and self:getParentGo().parent ~= nil then
-		self._listParentNode = self:getParentGo().parent;
-	end
+	-- if self:getParentGo() ~= nil and self:getParentGo().parent ~= nil then
+	-- 	self._listParentNode = self:getParentGo().parent;
+	-- end
 
 end
 
