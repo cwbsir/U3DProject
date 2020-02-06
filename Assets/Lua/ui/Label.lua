@@ -1,8 +1,9 @@
 Label = class("Label",Node);
 
 function Label:ctor()
-	self._content = nil;
 	self.count = 1;
+	self._isRich = nil;
+	self._content = nil;
 	Label.super.ctor(self);	
 end
 
@@ -38,6 +39,14 @@ function Label:setString(str)
 	if self.component ~= nil then
 		self.component.text = self._content;
 	end
+end
+
+function Label:setRich(isRich)
+	if isRich == nil or isRich == self._isRich then
+		return;
+	end
+	self._isRich = isRich;
+	self.component.supportRichText = isRich;
 end
 
 function Label:setFontSize(fontSize)
@@ -80,6 +89,12 @@ end
 --UnityEngine.VerticalWrapMode.Overflow强行超出)
 function Label:setVOverflow(overflow)
 	self.component.verticalOverflow = overflow;
+end
+
+function Label:doClear()
+	self._isRich = nil;
+	self._content = nil;
+	Label.super.doClear(self);
 end
 
 function Label:dispose()

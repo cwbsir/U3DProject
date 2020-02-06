@@ -22,8 +22,8 @@ public class Driver:MonoBehaviour
         
         lua = new LuaState();
         lua.OpenLibs(LuaDLL.luaopen_pb);
-        lua.OpenLibs(LuaDLL.luaopen_lpeg);
         lua.OpenLibs(LuaDLL.luaopen_bit);
+        lua.OpenLibs(LuaDLL.luaopen_lpeg);
         lua.OpenLibs(LuaDLL.luaopen_socket_core);
         lua.LuaSetTop(0);
         

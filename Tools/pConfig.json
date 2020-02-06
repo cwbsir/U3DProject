@@ -1,10 +1,10 @@
 {
 	"headList" : [
 		
-		"core/Clone.lua",
-		"core/Class.lua",
-		"core/functions.lua",
-		"core/EventDispatcher.lua",
+		"utils/Clone.lua",
+		"utils/Class.lua",
+		"utils/functions.lua",
+		"utils/EventDispatcher.lua",
 
 		"ui/KCreator.lua",
 		"ui/Node.lua",
@@ -13,13 +13,13 @@
 		"ui/Button.lua",
 		"ui/InputLabel.lua",
 
-		"GlobalData.lua",
-		"UIManager.lua",
-		"GlobalConst.lua"
-		"TickManager.lua",
-		"GlobalManager.lua",
-		"CameraManager.lua",
-		"ColorConst.lua",
+		"datas/GlobalData.lua",
+		"datas/GlobalConst.lua"
+		"datas/ColorConst.lua",
+		"managers/UIManager.lua",
+		"managers/TickManager.lua",
+		"managers/GlobalManager.lua",
+		"managers/CameraManager.lua",
 
 	
 	],

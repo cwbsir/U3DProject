@@ -1,28 +1,34 @@
-require "core/Clone"
-require "core/Class"
-require "core/functions"
-require "core/EventDispatcher"
+require "utils/Clone"
+require "utils/Class"
+require "utils/functions"
+require "utils/EventDispatcher"
 require "ui/KCreator"
 require "ui/Node"
 require "ui/Label"
 require "ui/Image"
 require "ui/Button"
 require "ui/InputLabel"
-require "GlobalData"
-require "UIManager"
-require "GlobalManager"
-require "CameraManager"
-require "ColorConst"
+require "datas/GlobalData"
+require "managers/UIManager"
+require "managers/TickManager"
+require "managers/GlobalManager"
+require "managers/CameraManager"
 
-require "AssetLoader"
-require "GlobalConst"
-require "LoaderManager"
 require "StartController"
-require "TickManager"
 
-require "common/LayerConst"
+require "common/AssetLoader"
 
-require "core/PoolManager"
-require "core/QuoteData"
+require "datas/ColorConst"
+require "datas/GlobalConst"
+require "datas/LayerConst"
+require "datas/TriggerInfo"
+require "datas/TriggerType"
 
+require "managers/LoaderManager"
+require "managers/PoolManager"
+require "managers/TriggerManager"
+
+require "ui/RichLabel"
+
+require "utils/QuoteData"
 

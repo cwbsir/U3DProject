@@ -40,13 +40,13 @@ function KCreator:createLabel(fontSize,name,isPool)
 		label:show();
 	end
 	label:setName(name);
+	label:setRich(false);
 	label:setLineSpacing(1);
 	label:setSize(100,100,true,true);
 	label:setFontSize(fontSize or 20);
 	label:setFontStyle(UnityEngine.FontStyle.Normal);
 	label:setPivot(self.pivotPoint0);
 	label:setAnchor(self.pivotPoint1,self.pivotPoint1);
-
 	return label;
 end
 
@@ -71,7 +71,7 @@ function KCreator:createButton(name,isPool)
 	name = name or "Button";
 	local button,isNew = globalManager.poolManager:createButton(isPool);
 	if isNew then
-		local object = newObject(name)
+		local object = newObject(name);
 		button:setObject(object);
 	else
 		button:setName(name);
@@ -82,6 +82,26 @@ function KCreator:createButton(name,isPool)
 	button:setAnchor(self.pivotPoint1,self.pivotPoint1);
 
 	return button;
+end
+
+function KCreator:createRichLabel(fontSize,name,isPool)
+	name = name or "RichLabel";
+	local label,isNew = globalManager.poolManager:createRichLabel(isPool);
+	if isNew then
+		local object = newObject(name);
+		label:setObject(object);
+	else
+		label:show();
+	end
+	label:setName(name);
+	label:setRich(true);
+	label:setLineSpacing(1);
+	label:setSize(100,100,true,true);
+	label:setPivot(self.pivotPoint0);
+	label:setFontSize(fontSize or 20);
+	label:setFontStyle(UnityEngine.FontStyle.Normal);
+	label:setAnchor(self.pivotPoint1,self.pivotPoint1);
+	return label;
 end
 
 --创建输入文本
