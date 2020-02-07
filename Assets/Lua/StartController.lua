@@ -18,9 +18,9 @@ end
 function StartController:loadUIPrefabsComplete(abName,assetName,abcontent)
 	globalData.uiPrefabs = parseABContent(abcontent);
 	
-	for k,v in pairs(globalData.uiPrefabs) do
-		print("uiPrefabs:",k);
-	end
+	-- for k,v in pairs(globalData.uiPrefabs) do
+	-- 	print("uiPrefabs:",k);
+	-- end
 	globalManager.loaderManager:loadAsset("font.u",self.loadFontComplete,self);
 end
 
@@ -53,15 +53,28 @@ function StartController:startGame()
 	label:setString("你是&#6$602$2$<color=#fb5657>没下划线点击</color>$81$0$0$0#&哈&#6$602$3$<color=#fb5657>下划线点击</color>$91$0$0$0#&吗");
 	label:setParent(globalManager.uiManager.mainTransform);
 
-	local listView = globalManager.kCreator:createListView(image.transform,"listView");
-	listView:setMargin(5);
-	listView:pushBackItem(globalManager.kCreator:createImage());
-	listView:pushBackItem(globalManager.kCreator:createImage());
-	listView:pushBackItem(globalManager.kCreator:createImage());
-	listView:pushBackItem(globalManager.kCreator:createImage());
-	listView:pushBackItem(globalManager.kCreator:createImage());
+	local scrollView = globalManager.kCreator:createListView(image.transform,"scrollView");
+	scrollView:setMargin(5);
+	scrollView:pushBackItem(globalManager.kCreator:createImage());
+	scrollView:pushBackItem(globalManager.kCreator:createImage());
+	scrollView:pushBackItem(globalManager.kCreator:createImage());
+	scrollView:pushBackItem(globalManager.kCreator:createImage());
 
-	listView:setViewPortSize(100,250);
+	-- scrollView:setCallBacks(self.createItemCb,self.getItemIdCb,self.getItemLenCb,self);
+	-- scrollView:setFormat(1,100,100);
+end
+
+function StartController:createItemCb(index)
+	print("createItemCb",index);
+	return globalManager.kCreator:createImage();
+end
+
+function StartController:getItemIdCb(index)
+	return index;
+end
+
+function StartController:getItemLenCb(index)
+	return 10;
 end
 
 function StartController:btnClickHandler(sender)

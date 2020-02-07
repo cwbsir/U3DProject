@@ -134,3 +134,16 @@ function KCreator:createListView(parentTrans,name)
 	contaiener:setObject(content);
 	return contaiener,mainNode;
 end
+
+--创建ListContainer  parentTrans父类transform  contaienr容器 mainNode根节点
+function KCreator:createScrollView(parentTrans,name)
+	local mainNode = Node:new();
+	local obj = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
+	obj.name = name;
+	mainNode:setObject(obj);
+	mainNode:setParent(parentTrans);
+	local content = obj.transform:Find("Viewport/Content");
+	local contaiener = ScrollView:new();
+	contaiener:setObject(content);
+	return contaiener,mainNode;
+end

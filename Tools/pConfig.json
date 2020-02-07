@@ -13,6 +13,7 @@
 		"ui/Button.lua",
 		"ui/InputLabel.lua",
 		"ui/ListView.lua",
+		"ui/ScrollView.lua",
 
 		"datas/GlobalData.lua",
 		"datas/GlobalConst.lua"

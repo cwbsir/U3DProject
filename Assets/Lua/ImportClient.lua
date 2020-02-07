@@ -9,6 +9,7 @@ require "utils/Clone"
 require "ui/Button"
 require "ui/InputLabel"
 require "ui/ListView"
+require "ui/ScrollView"
 require "datas/GlobalData"
 require "managers/UIManager"
 require "managers/TickManager"
