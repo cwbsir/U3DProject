@@ -61,7 +61,7 @@ function KCreator:createImage(name,isPool)
 		image:show();
 	end
 
-	image:setPivot(self.pivotPoint0);
+	image:setPivot(self.pivotPoint1);
 	image:setAnchor(self.pivotPoint1,self.pivotPoint1);
 
 	return image;
@@ -120,4 +120,17 @@ function KCreator:createInputLabel(name)
 	inputLabel:setColor(globalConst.colorConst.black);
 	inputLabel:setFontSize(20);
 	return inputLabel;
+end
+
+--创建ListContainer  parentTrans父类transform  contaienr容器 mainNode根节点
+function KCreator:createListView(parentTrans,name)
+	local mainNode = Node:new();
+	local obj = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
+	obj.name = name;
+	mainNode:setObject(obj);
+	mainNode:setParent(parentTrans);
+	local content = obj.transform:Find("Viewport/Content");
+	local contaiener = ListView:new();
+	contaiener:setObject(content);
+	return contaiener,mainNode;
 end

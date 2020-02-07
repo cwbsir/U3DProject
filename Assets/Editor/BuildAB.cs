@@ -8,6 +8,7 @@ public class BuildAB : MonoBehaviour
     [MenuItem("Assets/Build AssetBundles")]
     static void BuildAllAssetBundles()
     {
+        Debug.Log("BuildAllAssetBundles");
         string assetBundleDirectory = "Assets/StreamingAssets";
         if (!Directory.Exists(assetBundleDirectory))
         {

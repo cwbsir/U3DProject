@@ -1,10 +1,10 @@
 ManifestFileVersion: 0
-CRC: 1423803561
+CRC: 753143596
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: uiprefabs.u
+      Name: font.u
       Dependencies: {}
     Info_1:
-      Name: font.u
+      Name: uiprefabs.u
       Dependencies: {}
