@@ -3,11 +3,10 @@ Assembly-CSharp-Editor.csproj
 U3DProject.sln
 U3DProject.v11.suo
 
-testIgnore.txt
-
 /Library/
 /Logs/
 /ProjectSettings/
 /obj/
 /.vs/
 /Packages/
+/Temp/
