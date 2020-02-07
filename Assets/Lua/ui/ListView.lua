@@ -2,7 +2,9 @@ ListView = class("ListView",Node);
 
 function ListView:ctor()
 	self._viewRect = nil;--滚动可视窗口(=遮罩大小)
+	self._container = nil;--装视图的容器
 	self._scrollRect = nil;
+	self._contentSize = nil;
 	self._padding = {top = 0, right = 0, bottom = 0, left = 0};--边距
 	self._margin = 0;--item间隙
 	self._itemList = {};--list数组(itemview)
@@ -13,25 +15,16 @@ function ListView:ctor()
 	ListView.super.ctor(self);
 end
 
-function ListView:setObject(gameObject)
-	ListView.super.setObject(self,gameObject);
-	self.component = gameObject:GetComponent(typeof(UIScrollContent));
-	local masks = gameObject:GetComponentsInParent(typeof(UnityEngine.UI.Mask), true);
-	print("masks.Length",masks.Length);
+function ListView:createComponent()
+	self._container = self.go.transform:Find("Viewport/Content");
+	self.component = self.go:GetComponent(typeof(UIScrollContent));
+	self._scrollRect = self.go:GetComponent(typeof(UnityEngine.UI.ScrollRect));
+
+	local masks = self.go:GetComponentsInChildren(typeof(UnityEngine.UI.Mask), true);
 	if masks ~= nil and masks.Length > 0 then
 		self._viewRect = masks[0].transform;
 	end
-
-	local scrollRects = gameObject:GetComponentsInParent(typeof(UnityEngine.UI.ScrollRect), true);
-	if scrollRects ~= nil and scrollRects.Length > 0 then
-		self._scrollRect = scrollRects[0];
-	end
 	self:setVertical(true);
-	
-	-- if self:getParentGo() ~= nil and self:getParentGo().parent ~= nil then
-	-- 	self._listParentNode = self:getParentGo().parent;
-	-- end
-
 end
 
 -- 设置边距
@@ -45,15 +38,15 @@ end
 
 function ListView:setPositionChangeType(scrollPosChangeType)
 	-- 滚动触发函数
-	if scrollPosChangeType == globalConst.uiConst.scrollPosChangeType.scrollJumpItem then
-		self.component.onPositionChange = function ()
-			self:scrollJumpItem();
-		end;
-	elseif scrollPosChangeType == globalConst.uiConst.scrollPosChangeType.scrollHandler then
-		self.component.onPositionChange = function ()
-			self:scrollHandler();
-		end;
-	end
+	-- if scrollPosChangeType == globalConst.uiConst.scrollPosChangeType.scrollJumpItem then
+	-- 	self.component.onPositionChange = function ()
+	-- 		self:scrollJumpItem();
+	-- 	end;
+	-- elseif scrollPosChangeType == globalConst.uiConst.scrollPosChangeType.scrollHandler then
+	-- 	self.component.onPositionChange = function ()
+	-- 		self:scrollHandler();
+	-- 	end;
+	-- end
 end
 
 function ListView:setScrollCallBack(scrollCb,scrollTarget)
@@ -104,7 +97,7 @@ function ListView:scrollJumpItem()
 			local item = self._itemList[1];
 			if item ~= nil then
 				--加0.5用来实现四舍五入math.floor(5.123 + 0.5)
-				selectIndex = math.floor((self._viewRect.sizeDelta.x / 2 - self.transform.anchoredPosition.x - self._padding.left) / (item:getSize().x + self._margin) + 0.5);
+				selectIndex = math.floor((self._viewRect.sizeDelta.x / 2 - self._container.anchoredPosition.x - self._padding.left) / (item:getSize().x + self._margin) + 0.5);
 				if selectIndex < 0 then
 					selectIndex = 0;
 				elseif selectIndex >= itemLen - self._endGap then
@@ -113,8 +106,8 @@ function ListView:scrollJumpItem()
 				item = self._itemList[selectIndex + 1];
 				if item ~= nil then
 					local destx = self._viewRect.sizeDelta.x / 2 - item:getPosition().x - item:getSize().x / 2;
-					if math.abs(destx) >  self.transform.rect.width - self._viewRect.rect.width then
-						destx = - self.transform.rect.width + self._viewRect.rect.width;
+					if math.abs(destx) >  self._container.rect.width - self._viewRect.rect.width then
+						destx = - self._container.rect.width + self._viewRect.rect.width;
 					end
 					--跳转到需要选中的item
 					self:scrollToPos(destx);
@@ -126,7 +119,7 @@ function ListView:scrollJumpItem()
 			local item = self._itemList[1];
 			if item ~= nil then
 				--加0.5用来实现四舍五入math.floor(5.123 + 0.5)
-				selectIndex = math.floor(( - self._viewRect.sizeDelta.y / 2 + self.transform.anchoredPosition.y + self._padding.top) / (item:getSize().y + self._margin) + 0.5);
+				selectIndex = math.floor(( - self._viewRect.sizeDelta.y / 2 + self._container.anchoredPosition.y + self._padding.top) / (item:getSize().y + self._margin) + 0.5);
 				if selectIndex < 0 then
 					selectIndex = 0;
 				elseif selectIndex >= itemLen - self._endGap then
@@ -135,8 +128,8 @@ function ListView:scrollJumpItem()
 				item = self._itemList[selectIndex + 1];
 				if item ~= nil then
 					local destY = item:getSize().y / 2 - item:getPosition().y - self._viewRect.sizeDelta.y / 2;
-					if math.abs(destY) >  self.transform.rect.height then
-						destY = - self.transform.rect.height;
+					if math.abs(destY) >  self._container.rect.height then
+						destY = - self._container.rect.height;
 					end
 					--跳转到需要选中的item
 					self:scrollToPos(destY);
@@ -161,7 +154,7 @@ end
 -- 滚到顶部
 function ListView:scrollToTop()
 	self:stopMovement();
-	self.transform.anchoredPosition = Vector2.zero;
+	self._container.anchoredPosition = Vector2.zero;
 end
 
 -- 滚到底部
@@ -169,24 +162,24 @@ function ListView:scrollToBottom()
 	self:stopMovement();
 	local jumpPos = Vector2.zero;
 	if self._scrollRect.horizontal then
-		jumpPos.x = -(self:getSize().x - self._viewRect.rect.width);
+		jumpPos.x = -(self:getContentSize().x - self._viewRect.rect.width);
 	else
-		jumpPos.y = self:getSize().y - self._viewRect.rect.height;
+		jumpPos.y = self:getContentSize().y - self._viewRect.rect.height;
 	end
-	self.transform.anchoredPosition = jumpPos;
+	self._container.anchoredPosition = jumpPos;
 end
 
 function ListView:isEnd(pos)
 	if self._scrollRect.horizontal then
-		local endX = -(self.transform.rect.width - self._viewRect.rect.width);
+		local endX = -(self._container.rect.width - self._viewRect.rect.width);
 		if pos == nil then
-			pos = self.transform.anchoredPosition.x;
+			pos = self._container.anchoredPosition.x;
 		end
 		return endX >= pos;
 	else
-		local endY = self.transform.rect.height - self._viewRect.rect.height;
+		local endY = self._container.rect.height - self._viewRect.rect.height;
 		if pos == nil then
-			pos = self.transform.anchoredPosition.y;
+			pos = self._container.anchoredPosition.y;
 		end
 		return pos >= endY;
 	end
@@ -194,9 +187,9 @@ end
 
 function ListView:getEnd()
 	if self._scrollRect.horizontal then
-		return -(self.transform.rect.width - self._viewRect.rect.width);
+		return -(self._container.rect.width - self._viewRect.rect.width);
 	else
-		return self.transform.rect.height - self._viewRect.rect.height;
+		return self._container.rect.height - self._viewRect.rect.height;
 	end
 end
 
@@ -212,7 +205,7 @@ function ListView:scrollToPos(pos)
 	else
 		jumpPos.y = pos;
 	end
-	self.transform.anchoredPosition = jumpPos;
+	self._container.anchoredPosition = jumpPos;
 end
 
 function ListView:stopMovement()
@@ -230,34 +223,13 @@ function ListView:getViewportWidth()
 	return self._viewRect.rect.width;
 end
 
-function ListView:setPosition(x,y)
-	if self:getParentGo() ~= nil and self:getParentGo().parent ~= nil then
-		local parentTransform = self:getParentGo().parent;
-		local oldPos = parentTransform.anchoredPosition;
-		local position = globalManager.poolManager:createVector3(oldPos.x,oldPos.y,oldPos.z);
-		if(x ~= nil)then position.x = x; end
-		if(y ~= nil)then position.y = y; end
-		if(z ~= nil)then position.z = z; end
-		parentTransform.anchoredPosition = position;
-	end
-end
-
-function ListView:getPosition()
-	if self:getParentGo() ~= nil and self:getParentGo().parent ~= nil then
-		local parentTransform = self:getParentGo().parent;
-		local oldPos = parentTransform.anchoredPosition;
-		return globalManager.poolManager:createVector3(oldPos.x,oldPos.y,oldPos.z);
-	end
-	return globalManager.poolManager:createVector3(0,0,0)
-end
-
 function ListView:forbidScoll()
 	self._scrollRect.vertical = false;
 	self._scrollRect.horizontal = false;
 end
 
 function ListView:getCurScollPositionX()
-	return self.transform.anchoredPosition.x;
+	return self._container.anchoredPosition.x;
 end
 
 --listView不允许双轴滚动
@@ -333,10 +305,18 @@ function ListView:refresh(isImmediately)
 		totalH = -currentY - self._margin + self._padding.bottom;
 	end
 
-	self:setSize(totalW,totalH,true,true);
+	self:setContentSize(totalW,totalH);
 end
 
-function ListView:setSize(width,height,isForce,isImmediately)
+function ListView:getContentSize()
+	if(self._contentSize == nil)then
+		local size = self._container.sizeDelta;
+		self._contentSize = globalManager.poolManager:createVector2(size.x,size.y);
+	end
+	return self._contentSize;
+end
+-- 设置容器大小
+function ListView:setContentSize(width,height)
 	if self._scrollRect ~= nil and self._scrollRect.horizontal then
 		if self._viewRect ~= nil and width < self._viewRect.rect.width then
 			width = self._viewRect.rect.width+1;
@@ -346,18 +326,33 @@ function ListView:setSize(width,height,isForce,isImmediately)
 			height = self._viewRect.rect.height+1;
 		end
 	end
-	ListView.super.setSize(self,width,height,isForce,isImmediately);
+	local contentSize = self:getContentSize();
+	if width ~= nil then 
+		contentSize.x = width;
+	end
+	if height ~= nil then
+		contentSize.y = height;
+	end
+	self._container.sizeDelta = contentSize;
+end
+
+-- 设置可视窗口大小
+function ListView:setViewPortSize(width,height)
+	self._viewRect.sizeDelta = globalManager.poolManager:createVector2(width,height);
+	if self._listParentNode ~= nil then
+		self._listParentNode.sizeDelta = globalManager.poolManager:createVector2(width,height);
+	end
 end
 
 --在最后添加一个item
 function ListView:pushBackItem(item)
-	self:addNode(item);
+	item:setParent(self._container);
 	table.insert(self._itemList,item);
 	self:refresh();
 end
 --在指定index位置插入一个item
 function ListView:insertItem(item,index)
-	self:addNode(item);
+	item:setParent(self._container);
 	table.insert(self._itemList,index,item);
 	self:refresh();
 end
@@ -407,14 +402,6 @@ function ListView:setItems(list)
 	self:refresh(true);
 end
 
--- 设置窗口大小
-function ListView:setViewPortSize(width,height)
-	self._viewRect.sizeDelta = globalManager.poolManager:createVector2(width,height);
-	if self._listParentNode ~= nil then
-		self._listParentNode.sizeDelta = globalManager.poolManager:createVector2(width,height);
-	end
-end
-
 function ListView:getViewPortSize()
 	return self._viewRect.sizeDelta;
 end
@@ -425,7 +412,12 @@ function ListView:dispose()
 	self._padding = nil;
 	self:removeAllItems();
 	self._itemList = nil;
+	self._container = nil;
 	self._jumpItemCb = nil;
 	self._jumpItemTarget = nil;
+	if self._contentSize ~= nil then
+		globalManager.poolManager:putVector2(self._contentSize);
+		self._contentSize = nil;
+	end
 	self:poolDispose();
 end

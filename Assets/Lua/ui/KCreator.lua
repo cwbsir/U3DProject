@@ -123,27 +123,17 @@ function KCreator:createInputLabel(name)
 end
 
 --创建ListContainer  parentTrans父类transform  contaienr容器 mainNode根节点
-function KCreator:createListView(parentTrans,name)
-	local mainNode = Node:new();
-	local obj = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
-	obj.name = name;
-	mainNode:setObject(obj);
-	mainNode:setParent(parentTrans);
-	local content = obj.transform:Find("Viewport/Content");
-	local contaiener = ListView:new();
-	contaiener:setObject(content);
-	return contaiener,mainNode;
+function KCreator:createListView(name)
+	local object = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
+	local listView = ListView:new();
+	listView:setObject(object);
+	return listView;
 end
 
 --创建ListContainer  parentTrans父类transform  contaienr容器 mainNode根节点
-function KCreator:createScrollView(parentTrans,name)
-	local mainNode = Node:new();
-	local obj = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
-	obj.name = name;
-	mainNode:setObject(obj);
-	mainNode:setParent(parentTrans);
-	local content = obj.transform:Find("Viewport/Content");
-	local contaiener = ScrollView:new();
-	contaiener:setObject(content);
-	return contaiener,mainNode;
+function KCreator:createScrollView(name)
+	local object = UnityEngine.GameObject.Instantiate(globalData.uiPrefabs["ScrollView"]);
+	local scrollView = ScrollView:new();
+	scrollView:setObject(object);
+	return scrollView;
 end

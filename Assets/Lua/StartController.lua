@@ -53,15 +53,11 @@ function StartController:startGame()
 	label:setString("你是&#6$602$2$<color=#fb5657>没下划线点击</color>$81$0$0$0#&哈&#6$602$3$<color=#fb5657>下划线点击</color>$91$0$0$0#&吗");
 	label:setParent(globalManager.uiManager.mainTransform);
 
-	local scrollView = globalManager.kCreator:createListView(image.transform,"scrollView");
-	scrollView:setMargin(5);
-	scrollView:pushBackItem(globalManager.kCreator:createImage());
-	scrollView:pushBackItem(globalManager.kCreator:createImage());
-	scrollView:pushBackItem(globalManager.kCreator:createImage());
-	scrollView:pushBackItem(globalManager.kCreator:createImage());
-
-	-- scrollView:setCallBacks(self.createItemCb,self.getItemIdCb,self.getItemLenCb,self);
-	-- scrollView:setFormat(1,100,100);
+	local scrollView = globalManager.kCreator:createScrollView("scrollView");
+	image:addNode(scrollView);
+	scrollView:setGap(5,5);
+	scrollView:setCallBacks(self.createItemCb,self.getItemIdCb,self.getItemLenCb,self);
+	scrollView:setFormat(1,100,100);
 end
 
 function StartController:createItemCb(index)

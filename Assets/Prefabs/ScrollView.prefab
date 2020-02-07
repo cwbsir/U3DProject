@@ -98,6 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4066569072679815377}
+  - component: {fileID: 5061601925477818649}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -124,6 +125,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 420, y: 300}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &5061601925477818649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4066569072679815374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec4b36e68a462747ba0a2ea100f401d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSizeChange:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &4066569072857244652
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +153,6 @@ GameObject:
   - component: {fileID: 4066569072857244655}
   - component: {fileID: 4066569072857244656}
   - component: {fileID: 4066569072857244657}
-  - component: {fileID: 1439074460592934033}
   m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
@@ -203,20 +220,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4066569072857244652}
   m_CullTransparentMesh: 0
---- !u!114 &1439074460592934033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4066569072857244652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec4b36e68a462747ba0a2ea100f401d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onSizeChange:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null

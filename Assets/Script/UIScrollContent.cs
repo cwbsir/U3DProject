@@ -32,6 +32,7 @@ public class UIScrollContent : MonoBehaviour
     {
         if (onPositionChange != null && _transform.localPosition != _oldPosition)
         {
+            Debug.Log("Update==============111111111111");
             onPositionChange.Invoke();
             _oldPosition = _transform.localPosition;
         }

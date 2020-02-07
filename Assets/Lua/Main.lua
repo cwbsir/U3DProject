@@ -29,8 +29,7 @@ function onGuiFunc()
 end
 
 function tickFunc(deltaTime)
-	-- print("deltaTime=",deltaTime);
-	-- globalManager.tickManager:update(deltaTime)
+	globalManager.tickManager:update(deltaTime)
 end
 
 function fixedTickFunc(deltaTime)

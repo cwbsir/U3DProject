@@ -2,7 +2,11 @@ ScrollView = class("ScrollView",Node);
 
 function ScrollView:ctor()
 	self._viewRect = nil;--滚动可视窗口(=遮罩大小)
+	self._container = nil;--装视图的容器
 	self._scrollRect = nil;
+	self._contentSize = nil;
+	self._viewPortSize = nil;
+	self._uiScrollContent = nil;
 	self._itemWidth = 40;--itemview宽
 	self._itemHeight = 40;--itemview高
 	self._padding = {top = 0, right = 0, bottom = 0, left = 0};--边距
@@ -25,30 +29,24 @@ function ScrollView:ctor()
 	ScrollView.super.ctor(self);
 end
 
-function ScrollView:setObject(gameObject)
-	ScrollView.super.setObject(self,gameObject);
+function ScrollView:createComponent()
+	self._container = self.go.transform:Find("Viewport/Content");
+	self._scrollRect = self.go:GetComponent(typeof(UnityEngine.UI.ScrollRect));
 
-	local scrollContents = gameObject:GetComponentsInParent(typeof(UIScrollContent), true);
+	local scrollContents = self.go:GetComponentsInChildren(typeof(UIScrollContent),true);
 	if scrollContents ~= nil and scrollContents.Length > 0 then
-		self.component = scrollContents[0];
+		self._uiScrollContent = scrollContents[0];
+			-- 滚动触发函数
+		self._uiScrollContent.onPositionChange = function() self:refresh(false) end
 	end
-	-- 遮罩
-	local masks = gameObject:GetComponentsInParent(typeof(UnityEngine.UI.Mask), true);
+
+	local masks = self.go:GetComponentsInChildren(typeof(UnityEngine.UI.Mask), true);
 	if masks ~= nil and masks.Length > 0 then
 		self._viewRect = masks[0].transform;
 	end
-
-	local scrollRects = gameObject:GetComponentsInParent(typeof(UnityEngine.UI.ScrollRect), true);
-	if scrollRects ~= nil and scrollRects.Length > 0 then
-		self._scrollRect = scrollRects[0];
-	end
 	self:setVertical(true);
-	-- 滚动触发函数
-	self.component.onPositionChange = function() self:refresh(false) end;
-	--列表的父节点
-	-- if self:getParentGo() ~= nil and self:getParentGo().parent ~= nil then
-	-- 	self._listParentNode = self:getParentGo().parent;
-	-- end
+
+
 end
 
 -- 设置边距
@@ -70,7 +68,7 @@ end
 -- 滚到顶部
 function ScrollView:scrollToTop()
     self:stopMovement();
-    self.transform.anchoredPosition = Vector2.zero;
+    self._container.anchoredPosition = Vector2.zero;
 end
 
 -- 滚到底部
@@ -78,13 +76,13 @@ function ScrollView:scrollToBottom()
     self:stopMovement();
     local jumpPos = Vector2.zero;
     if self._scrollRect.horizontal then
-    	jumpPos.x = -(self.transform.rect.width - self._viewRect.rect.width);
+    	jumpPos.x = -(self._container.rect.width - self._viewRect.rect.width);
     end
     
     if self._scrollRect.vertical then
-    	jumpPos.y = self.transform.rect.height - self._viewRect.rect.height;
+    	jumpPos.y = self._container.rect.height - self._viewRect.rect.height;
     end
-    self.transform.anchoredPosition = jumpPos;
+    self._container.anchoredPosition = jumpPos;
 end
 
 -- 跳到某个位置 x:0~1,y:0~1  0,0左下角
@@ -93,7 +91,7 @@ function ScrollView:jumpToPos(posX,posY)
     local jumpPos = Vector2.zero;
 	jumpPos.x = posX or 0;
 	jumpPos.y = posY or 0;
-    self.transform.anchoredPosition = jumpPos;
+    self._container.anchoredPosition = jumpPos;
 end
 
 function ScrollView:stopMovement()
@@ -155,11 +153,11 @@ end
 -- 计算需要创建的item列表（只存位置）
 function ScrollView:updateWaittingList(force)
 	if force == nil then force = true; end
-	local curPos = self.transform.anchoredPosition;
+	local curPos = self._container.anchoredPosition;
 	local startIndex = 0;
 	local endIndex = 0;
-	local contentW = self:getSize().x;
-	local contentH = self:getSize().y;
+	local contentW = self:getContentSize().x;
+	local contentH = self:getContentSize().y;
 	local viewW = self._viewRect.sizeDelta.x;
 	local viewH = self._viewRect.sizeDelta.y;
 
@@ -168,7 +166,7 @@ function ScrollView:updateWaittingList(force)
 	startIndex = math.max(startIndex,1);
 	endIndex = (math.ceil(viewH / (self._itemHeight + self._gap.gapH))+1) * self._rcCount + startIndex;
 	endIndex = math.min(endIndex,self._allCount + 1);
-	-- print("计算格子索引 == ",startIndex,endIndex,curPos.y);
+	print("计算格子索引 == ",startIndex,endIndex,curPos.y);
 	-- 只挪动几像素index不变，不往下执行
 	if self._lastStartIndex == startIndex and self._lastEndIndex == endIndex then return;end
 
@@ -227,7 +225,7 @@ function ScrollView:mainTick()
 		if item == nil then break;end
 		self:setItemPos(index,item);
 		self._idexIsSetPos[index] = true;
-		self:addNode(item);
+		item:setParent(self._container);
 		item:show();
 	end
 end
@@ -272,11 +270,8 @@ end
 
 function ScrollView:removeAllItem()
 	if next(self._itemList) then
-		-- print("removeAllItem",table.getLength(self._itemList));
 		for k, v in pairs(self._itemList) do
-			-- print("removeAllItem11");
 			if self._itemList[k] ~= nil then
-				-- print("removeAllItem22",k);
 	        	self._itemList[k]:dispose();
 	        	self._itemList[k] = nil;
 	        end
@@ -293,29 +288,47 @@ function ScrollView:updateContentSize()
 	local countV = self._rcCount;
 	local tmpW = self._padding.left + self._padding.right + self._gap.gapW *(countV - 1) + self._itemWidth * countV;
     local tmpH = self._padding.top + self._padding.bottom + self._gap.gapH *(countH - 1) + self._itemHeight * countH;
-    self:setSize(tmpW,tmpH);
+    self:setContentSize(tmpW,tmpH);
 end
 
-function ScrollView:getParentTransform()
-	return self._listParentNode;
+function ScrollView:getContentSize()
+	if(self._contentSize == nil)then
+		local size = self._container.sizeDelta;
+		self._contentSize = globalManager.poolManager:createVector2(size.x,size.y);
+	end
+	return self._contentSize;
 end
 
-function ScrollView:setListPosition(x,y,z)
-	local oldPos = self._listParentNode.anchoredPosition;
-	local position = globalManager.poolManager:createVector3(oldPos.x,oldPos.y,oldPos.z);
-	if(x ~= nil)then position.x = x; end
-	if(y ~= nil)then position.y = y; end
-	if(z ~= nil)then position.z = z; end
-	self._listParentNode.anchoredPosition = position;
+-- 设置容器大小
+function ScrollView:setContentSize(width,height)
+	local contentSize = self:getContentSize();
+	if width ~= nil then 
+		contentSize.x = width;
+	end
+	if height ~= nil then
+		contentSize.y = height;
+	end
+	self._container.sizeDelta = contentSize;
+end
+
+function ScrollView:getViewPortSize()
+	if(self._viewPortSize == nil)then
+		local size = self._viewRect.sizeDelta;
+		self._viewPortSize = globalManager.poolManager:createVector2(size.x,size.y);
+	end
+	return self._viewPortSize;
 end
 
 -- 设置窗口大小
 function ScrollView:setViewPortSize(width,height)
-	self._viewRect.sizeDelta = globalManager.poolManager:createVector2(width,height);
-end
-
-function ScrollView:setViewPortPosition(posX,posY,posZ)
-	self._viewRect.anchoredPosition = globalManager.poolManager:createVector3(posX,posY,posZ or 0);
+	local size = self:getViewPortSize();
+	if width ~= nil then 
+		size.x = width;
+	end
+	if height ~= nil then
+		size.y = height;
+	end
+	self._viewRect.sizeDelta = size;
 end
 
 --获取容器的高
@@ -345,8 +358,19 @@ function ScrollView:dispose()
     self._waittingList = nil;
     self._getItemFunc = nil;
     self._getIdFunc = nil;
+    self._container = nil;
     self._getItemLenFunc = nil;
     self._cbTarget = nil;
+    self._uiScrollContent = nil;
     self._idexIsSetPos = nil;
+   	if self._contentSize ~= nil then
+		globalManager.poolManager:putVector2(self._contentSize);
+		self._contentSize = nil;
+	end
+   	if self._viewPortSize ~= nil then
+		globalManager.poolManager:putVector2(self._contentSize);
+		self._viewPortSize = nil;
+	end
+	self._viewPortSize = nil;
     self:poolDispose();
 end
