@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BuildAB : MonoBehaviour
 {
-    //[MenuItem("AssetBundle/Package (Default)")]
-    [MenuItem("Assets/Build AssetBundles")]
+    [MenuItem("MyTools/Build AssetBundles")]
     static void BuildAllAssetBundles()
     {
         Debug.Log("BuildAllAssetBundles");
@@ -16,5 +15,17 @@ public class BuildAB : MonoBehaviour
         }
         
         BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
+    }
+
+    [MenuItem("MyTools/生成ImportClient.lua")]
+    static void BuildImportClient()
+    {
+        System.Diagnostics.Process proc = new System.Diagnostics.Process();
+        proc.StartInfo.FileName = Application.dataPath + "/../Tools/ImportClient.bat";
+        proc.StartInfo.CreateNoWindow = true;
+        proc.Start();
+        proc.WaitForExit();
+
+        Debug.Log("!!!!!!!ImportClient.lua重新生成成功!!!!!!!!!!!");
     }
 }
