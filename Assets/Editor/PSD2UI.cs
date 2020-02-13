@@ -39,10 +39,10 @@ class PSD2UI : MonoBehaviour
 	// [MenuItem("MyTools/PSD 转为 json")]
 	public static void PSD2Json(string psdFile,string outPath)
 	{	
-		// if(!PSD2UI.isMD5Change(psdFile))
-		// {
-		// 	return;
-		// }
+		if(!PSD2UI.isMD5Change(psdFile))
+		{
+			return;
+		}
 		string psdName = psdFile.Split('/')[psdFile.Split('/').Length - 1];
 		string outPsd = PSDConst.PSDTMP_PATH + psdName;
 
@@ -65,10 +65,10 @@ class PSD2UI : MonoBehaviour
 
 	public static void JsonStr2Prefab(string jsonPath)
 	{
-		// if(!PSD2UI.isMD5Change(jsonPath))
-		// {
-		// 	return;
-		// }
+		if(!PSD2UI.isMD5Change(jsonPath))
+		{
+			return;
+		}
 
 		StreamReader jsonReader = File.OpenText(jsonPath);
 		if (jsonReader == null) 
