@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 570053146
+CRC: 227498078
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f115dd0a2193aa6adb0e7198e72fd603
+    Hash: 51b1f681c1e5d6730e0462c061f73c13
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7d60d1eb4c7e99bf6d119c16dc6d5ab4
@@ -18,6 +18,6 @@ ClassTypes:
 - Class: 128
   Script: {instanceID: 0}
 Assets:
-- Assets/Fonts/Asterix-Blink.ttf
-- Assets/Fonts/yhFont.ttf
+- Assets/Resources/Fonts/Asterix-Blink.ttf
+- Assets/Resources/Fonts/yhFont.ttf
 Dependencies: []

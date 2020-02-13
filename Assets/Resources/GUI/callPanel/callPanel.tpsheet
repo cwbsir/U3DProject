@@ -1,0 +1,31 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: callPanel.png (2048 x 2048)
+# $TexturePacker:SmartUpdate:cd032b84fdf1de820929e163a6d9b7ad:3b2f14d5a4c26adc1c67fbd8695d68f0:61a3652d78c5c2bebb94347be5fd58c9$
+#
+
+board/lvjindutiao;329;3;25;12;0.5;0.5
+board/lvjindutiaodi;130;9;41;22;0.5;0.5
+board/zhandi;510;319;189;35;0.5;0.5
+btn/fanhui;329;17;130;50;0.5;0.5
+btn/fanhuiheng;2;6;33;25;0.5;0.5
+btn/selectFhuanghua;232;8;95;57;0.5;0.5
+callHeroImg1;2;484;673;280;0.5;0.5
+callTitleImg1;462;356;341;126;0.5;0.5
+callTitleImg2;432;165;334;129;0.5;0.5
+callTitleImg3;503;35;336;128;0.5;0.5
+choukabg;2;766;720;1280;0.5;0.5
+icon/jifen;37;9;91;22;0.5;0.5
+icon/jinjuan;301;69;129;191;0.5;0.5
+icon/jinjuanliang;166;262;166;220;0.5;0.5
+icon/lanjuan;334;296;126;186;0.5;0.5
+icon/lanjuanliang;2;33;162;221;0.5;0.5
+icon/liangdeng;432;88;69;75;0.5;0.5
+icon/lvjuan;166;67;133;193;0.5;0.5
+icon/lvjuanliang;2;256;162;226;0.5;0.5
+icon/wenhao;173;6;57;59;0.5;0.5
+icon/xinxi;462;308;46;46;0.5;0.5

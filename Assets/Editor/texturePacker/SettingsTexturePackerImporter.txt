@@ -1,0 +1,9 @@
+version: 2
+importPivots: 1
+tpsheetFileNames:
+- Assets/Resources/GUI/callPanel/callPanel.tpsheet
+textureFileNames:
+- Assets/Resources/GUI/callPanel/callPanel.png
+normalmapFileNames:
+- 
+enableDebugOutput: 0

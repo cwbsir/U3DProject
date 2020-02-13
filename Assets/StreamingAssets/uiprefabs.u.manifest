@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2604984918
+CRC: 1338126419
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2aa5d7d1138018bae74e6a0c11731e8c
+    Hash: 623ccad9ff98253ef86f6e95806f583f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 2218f2bf52241bcab87d64fc9d8e367c
@@ -41,6 +41,7 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/Prefabs/InputField.prefab
+- Assets/Prefabs/Image.prefab
 - Assets/Prefabs/Text.prefab
 - Assets/Prefabs/ScrollView.prefab
 Dependencies: []

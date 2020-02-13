@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildAB : MonoBehaviour
 {
     [MenuItem("MyTools/Build AssetBundles")]
-    static void BuildAllAssetBundles()
+    public static void BuildAllAssetBundles()
     {
         Debug.Log("BuildAllAssetBundles");
         string assetBundleDirectory = "Assets/StreamingAssets";
@@ -18,7 +18,7 @@ public class BuildAB : MonoBehaviour
     }
 
     [MenuItem("MyTools/生成ImportClient.lua")]
-    static void BuildImportClient()
+    public static void BuildImportClient()
     {
         System.Diagnostics.Process proc = new System.Diagnostics.Process();
         proc.StartInfo.FileName = Application.dataPath + "/../Tools/ImportClient.bat";

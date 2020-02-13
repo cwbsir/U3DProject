@@ -1,8 +1,6 @@
 StartController = class("StartController");
 
 function StartController:startLoad()
-
-	
 	print("Application.dataPath",UnityEngine.Application.dataPath);
 	print("Application.temporaryCachePath",UnityEngine.Application.temporaryCachePath);
 	print("Application.streamingAssetsPath",UnityEngine.Application.streamingAssetsPath);
@@ -17,7 +15,6 @@ end
 
 function StartController:loadUIPrefabsComplete(abName,assetName,abcontent)
 	globalData.uiPrefabs = parseABContent(abcontent);
-	
 	-- for k,v in pairs(globalData.uiPrefabs) do
 	-- 	print("uiPrefabs:",k);
 	-- end

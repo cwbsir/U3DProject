@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 30326663
+CRC: 2132596059
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -8,3 +8,11 @@ AssetBundleManifest:
     Info_1:
       Name: uiprefabs.u
       Dependencies: {}
+    Info_2:
+      Name: shader.u
+      Dependencies: {}
+    Info_3:
+      Name: callpanel.u
+      Dependencies:
+        Dependency_0: font.u
+        Dependency_1: shader.u
