@@ -2,6 +2,8 @@ require "utils/Clone"
 require "utils/Class"
 require "utils/functions"
 require "utils/EventDispatcher"
+require "utils/QuoteData"
+require "datas/template/TemplateParser"
 require "ui/KCreator"
 require "ui/Node"
 require "ui/Label"
@@ -26,11 +28,14 @@ require "utils/Clone"
 require "datas/TriggerInfo"
 require "datas/TriggerType"
 
+require "datas/template/BaseTemplateList"
+require "datas/template/SkillTemplateList"
+require "datas/template/TestTemplateList"
+
 require "managers/LoaderManager"
 require "managers/PoolManager"
 require "managers/TriggerManager"
 
 require "ui/RichLabel"
 
-require "utils/QuoteData"
 

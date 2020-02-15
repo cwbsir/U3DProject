@@ -10,6 +10,7 @@ public static class LuaBinder
 		float t = Time.realtimeSinceStartup;
 		L.BeginModule(null);
 		LuaInterface_DebuggerWrap.Register(L);
+		ByteArrayWrap.Register(L);
 		TouchTriggerWrap.Register(L);
 		LinkImageTextWrap.Register(L);
 		UIScrollContentWrap.Register(L);

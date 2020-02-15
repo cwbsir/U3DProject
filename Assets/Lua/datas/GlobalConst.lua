@@ -4,6 +4,9 @@ function GobalConst:ctor()
 	self.layerConst = nil;
 	self.colorConst = nil;
 	self.triggerType = nil;
+
+	self.testTemplateList = nil;
+
 	self.handlePattern = "&#%d+$[^&]*#&";
 end
 
@@ -11,4 +14,6 @@ function GobalConst:init()
 	self.layerConst = LayerConst:new();
 	self.colorConst = ColorConst:new();
 	self.triggerType = TriggerType:new();
+
+	self.testTemplateList = TestTemplateList:new();
 end

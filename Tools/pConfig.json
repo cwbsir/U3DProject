@@ -6,6 +6,10 @@
 		"utils/functions.lua",
 		"utils/EventDispatcher.lua",
 
+		"utils/QuoteData.lua",
+
+		"datas/template/TemplateParser.lua",
+
 		"ui/KCreator.lua",
 		"ui/Node.lua",
 		"ui/Label.lua",
@@ -14,6 +18,8 @@
 		"ui/InputLabel.lua",
 		"ui/ListView.lua",
 		"ui/ScrollView.lua",
+
+		
 
 		"datas/GlobalData.lua",
 		"datas/GlobalConst.lua"

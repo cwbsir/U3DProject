@@ -1,11 +1,32 @@
 StartController = class("StartController");
 
 function StartController:startLoad()
+	self.mubanTime = 0;
 	print("Application.dataPath",UnityEngine.Application.dataPath);
 	print("Application.temporaryCachePath",UnityEngine.Application.temporaryCachePath);
 	print("Application.streamingAssetsPath",UnityEngine.Application.streamingAssetsPath);
 	print("Application.persistentDataPath",UnityEngine.Application.persistentDataPath);
 
+	self:loadTemplate();
+end
+
+function StartController:loadTemplate()
+	if(self._templateComplete)then return; end
+	print("开始加载模板数据");
+	globalManager.loaderManager:loadBytes("ky203.txt",self.templateLoadComplete,self);
+end
+function StartController:templateLoadComplete(loaderItem,asset,bytes)
+	if bytes ~= nil then
+		print("template load complete");
+		self.mubanTime = os.clock();
+		globalManager.templateParser:start(bytes, self.templateParseComplete, self);
+	end
+end
+
+function StartController:templateParseComplete()
+	print("template parse complete");
+	print("ooooooooooooooooooooo解析模板表耗时：",os.clock() - self.mubanTime);
+	self._templateComplete = true;
 	self:loadUIPrefabs();
 end
 

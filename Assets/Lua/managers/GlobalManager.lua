@@ -17,6 +17,7 @@ function GlobalManager:init()
 	self.tickManager = TickManager:new();
 	self.poolManager = PoolManager:new();
 	self.loaderManager = LoaderManager:new();
+	self.templateParser = TemplateParser:new();
 
 	self.uiManager = UIManager:new();
 	self.cameraManager = CameraManager:new();

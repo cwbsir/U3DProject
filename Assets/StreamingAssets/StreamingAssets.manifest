@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2132596059
+CRC: 284657629
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -16,3 +16,6 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: font.u
         Dependency_1: shader.u
+    Info_4:
+      Name: ky203.txt.u
+      Dependencies: {}

@@ -1,0 +1,20 @@
+{
+	dbUrl : "jdbc:mysql://localhost:3306/mydatabase?useUnicode=true&characterEncoding=GBK",
+	dbUser : "root",
+	dbPassword : "123456",
+	fileName : "ky203.txt",
+	version : 476,
+	tables : [
+		{
+			desc : "模板表 iconTemplateList",
+			id : 1,
+			sql : "select * from t_template_test",
+			cols : [
+					["id", "32"],
+					["data_length","16"],
+					["name", "string"],
+					["age", "32"],
+			]
+		},
+	]
+}

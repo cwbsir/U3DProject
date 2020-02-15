@@ -212,6 +212,7 @@ public static class CustomSettings
         _GT(typeof(AnimatorStateInfo)),
 
         //自定义类
+        _GT(typeof(ByteArray)),
         _GT(typeof(TouchTrigger)),
         _GT(typeof(LinkImageText)),
         _GT(typeof(UIScrollContent)),
