@@ -2,8 +2,11 @@ version: 2
 importPivots: 1
 tpsheetFileNames:
 - Assets/Resources/GUI/callPanel/callPanel.tpsheet
+- Assets/Resources/GUI/UICommon/UICommon.tpsheet
 textureFileNames:
 - Assets/Resources/GUI/callPanel/callPanel.png
+- Assets/Resources/GUI/UICommon/UICommon.png
 normalmapFileNames:
+- 
 - 
 enableDebugOutput: 0

@@ -12,11 +12,13 @@ public class PSDConst
 
 	public static string GUI_PATH = "Assets/Resources/GUI/";
 	public static string OUT_PATH = "Assets/Resources/OutPic/";
-	public static string PSDTMP_PATH = Application.dataPath+"/Resources/PSD/PSDTmp/";
-	public static string PSDTMP_OUT_PATH = Application.dataPath+"/Resources/PSD/PSDTmpOutput/";
+	public static string PSD_PATH = Application.dataPath+"/Resources/PSD/PSD/";
+	public static string PSD_OUT_PATH = Application.dataPath+"/Resources/PSD/PSDOutput/";
+	public static string UI_COMMON_PATH = Application.dataPath+"/Resources/PSD/PSD/UICommon.psd";
+	public static string ATLAS_PATH_COMMON = Application.dataPath+"/Resources/GUI/UICommon/UICommon.png";
+	
 
 	public static string ATLAS_TEXTURE_EXE = "D:/TexturePacker/bin/TexturePacker.exe";
-	public static string ATLAS_PATH_COMMON = "";
 
 	public static string Psd2UI_EXE_PATH = Application.dataPath + "/Resources/PSD/Psd2UI.exe";
 

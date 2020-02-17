@@ -84,16 +84,15 @@ public class ImageComponent
 		string atlasName = (prefix != "") ? (prefix + "-" + imgName) : (imgName);
 
 		// 获取图集名称,先从公共图集中查询
-		//暂时注释
-		// if (File.Exists (PSDConst.ATLAS_PATH_COMMON)) {
-		// 	sprite = AtlasManager.getSpriteForTextureP (PSDConst.ATLAS_PATH_COMMON, atlasName);
-		// 	// 加载材质
-		// 	material = AtlasManager.getMaterForAtlasPath(PSDConst.ATLAS_PATH_COMMON); 
-		// 	if (sprite != null) {
-		// 		isCommon = true;
-		// 	}
-		// }
-		// Debug.Log ("$$$imgPath: "+imgPath);
+		if (File.Exists (PSDConst.ATLAS_PATH_COMMON)) {
+			sprite = AtlasManager.getSpriteForTextureP (PSDConst.ATLAS_PATH_COMMON, atlasName);
+			// 加载材质
+			material = AtlasManager.getMaterForAtlasPath(PSDConst.ATLAS_PATH_COMMON); 
+			if (sprite != null) {
+				isCommon = true;
+			}
+		}
+		Debug.Log ("$$$imgPath: "+imgPath);
 
 
 		//Debug.Log ("$$$src:"+baseAssetsDir + rootPath + '/');
@@ -182,7 +181,7 @@ public class ImageComponent
 			// Texture图集九宫格切图
 			TextureImporter importer = null;
 			if (isCommon) {
-				importer = AssetImporter.GetAtPath (PSDConst.ATLAS_PATH_COMMON) as TextureImporter;
+				importer = AssetImporter.GetAtPath (PSDConst.UI_COMMON_PATH) as TextureImporter;
 				importer.isReadable = true;
 			} else {
 				importer = AssetImporter.GetAtPath (PSDConst.GUI_PATH + file_result + '/' + file_result + ".png") as TextureImporter;

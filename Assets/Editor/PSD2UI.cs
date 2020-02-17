@@ -3,6 +3,8 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Globalization;
+using System.Collections.Generic;
 
 
 class PSD2UI : MonoBehaviour
@@ -18,44 +20,50 @@ class PSD2UI : MonoBehaviour
 		Debug.Log("inputFile:"+inputFile);
 		if ((inputFile != null) && (inputFile != ""))
 		{
-			PSD2Json(inputFile, PSDConst.PSDTMP_OUT_PATH);
+			string psdName = inputFile.Split('/')[inputFile.Split('/').Length - 1];
 
-			string[] jsonPaths = Directory.GetFiles(PSDConst.PSDTMP_OUT_PATH, "*.json", SearchOption.AllDirectories);
-			 foreach (string jsonPath in jsonPaths)
-			 {
-				JsonStr2Prefab(jsonPath);
-			 }
+			string dirName = Path.GetFileNameWithoutExtension(psdName);
+			dirName = dirName.Split('_')[dirName.Split('_').Length - 1];
+
+			string outPath = PSDConst.PSD_OUT_PATH + dirName + "/";
+			PSD2Json(inputFile, outPath);
+
+			Json2Prefab(outPath,dirName);
 		}
 		GC.Collect();
 
 				// 删除临时文件夹
-		// if (Directory.Exists (PSD2UI.texturePackerTempPath)) {
-		// 	Directory.Delete(PSD2UI.texturePackerTempPath,true);
-		// }
+		if (Directory.Exists (PSD2UI.texturePackerTempPath)) {
+			Directory.Delete(PSD2UI.texturePackerTempPath,true);
+		}
 
 		Debug.Log("###########执行命令结束###########");
 	}
 
-	// [MenuItem("MyTools/PSD 转为 json")]
+	[MenuItem("MyTools/打common图集")]
+	public static void BuildCommonUI()
+	{
+		PSD2Json(PSDConst.UI_COMMON_PATH,PSDConst.PSD_OUT_PATH+"UICommon/");
+		string jsonPath = PSDConst.PSD_OUT_PATH + "UICommon/";
+		Json2Prefab(jsonPath,"UICommon");
+
+		string prefabPath = PSDConst.GUI_PATH + "UICommon/"+ "UICommonPrefab.prefab";
+		if(File.Exists(prefabPath))
+		{
+			File.Delete(prefabPath);
+		}
+		Debug.Log("###########common图集成功打完###########");
+	}
+
+
+	// [MenuItem("MyTools/PSD 转为 json")] 
 	public static void PSD2Json(string psdFile,string outPath)
 	{	
-		if(!PSD2UI.isMD5Change(psdFile))
-		{
-			return;
-		}
-		string psdName = psdFile.Split('/')[psdFile.Split('/').Length - 1];
-		string outPsd = PSDConst.PSDTMP_PATH + psdName;
-
-		if(psdName != outPsd)
-		{
-			if(File.Exists(outPsd))
-			{
-				File.Delete(outPsd);
-			}
-			File.Copy(psdFile,outPsd);
-		}
-
-
+		// if(!PSD2UI.isMD5Change(psdFile))
+		// {
+		// 	return;
+		// }
+		Debug.Log("PSD2Json psdFile："+psdFile+",outPath"+outPath);
 		// TODO 执行psd工具的命令.具体的拷贝 `plist.bat` 里面执行的命令
     	string cmd = String.Format("\"{0}\" -o \"{1}\" -s -v", psdFile, outPath);
    		// 执行cmd命令
@@ -63,84 +71,87 @@ class PSD2UI : MonoBehaviour
 	}
 
 
-	public static void JsonStr2Prefab(string jsonPath)
+	public static void Json2Prefab(string outPath,string dirName)
 	{
-		if(!PSD2UI.isMD5Change(jsonPath))
+
+		string[] jsonPaths = Directory.GetFiles(outPath, "*.json", SearchOption.AllDirectories);
+		 
+
+		List<Model> modelList = new List<Model>();
+
+		 foreach (string jsonPath in jsonPaths)
+		 {
+			// if(!PSD2UI.isMD5Change(jsonPath))
+			// {
+			// 	continue;
+			// }
+			StreamReader jsonReader = File.OpenText(jsonPath);
+			if (jsonReader != null) 
+			{
+				string jsonStr = jsonReader.ReadToEnd();
+				Model model = JsonUtility.FromJson<Model> (jsonStr);
+				modelList.Add(model);
+			}
+		 }
+
+		if(modelList.Count <= 0){ return; }
+
+        PSD2UI.curBaseAssetsDir = outPath;
+		
+		for (var i = 0; i < modelList.Count; i++)
 		{
-			return;
+			var model = modelList[i];
+
+			for (var j = model.children.Length - 1; j>= 0; j--) 
+			{
+				oneCopyImgToTmpPath(model.children[j],dirName);
+			}
 		}
-
-		StreamReader jsonReader = File.OpenText(jsonPath);
-		if (jsonReader == null) 
-		{
-			return;
-		}
-		string jsonName = jsonPath.Split('/')[jsonPath.Split('/').Length - 1];
-        int subIndex = jsonPath.IndexOf(jsonName);
-        PSD2UI.curBaseAssetsDir = jsonPath.Substring(0,subIndex);
-
-		string jsonStr = jsonReader.ReadToEnd();
-		Model model = JsonUtility.FromJson<Model> (jsonStr);
+		copyImgToTmpPathFromPNGExport(dirName);
 
 
+		//打包临时文件的图集
+		Debug.Log("######开始打图集######");
+		string srcPath = PSD2UI.texturePackerTempPath + dirName;
+		string tarPath = PSDConst.GUI_PATH + dirName + "/" + dirName + ".png";
+		AtlasManager.InitAtlasForTextureP(srcPath,tarPath);
+
+		Debug.Log("######图集打完，开始加载UI######");
 		string path1 = PSDConst.GetPrefabPathByName("Canvas");
 		Canvas temp1 = AssetDatabase.LoadAssetAtPath(path1, typeof(Canvas)) as Canvas;
 		// 实例化显示prefab（要另外用个对象保存避免被释放）
 		Canvas canvas = GameObject.Instantiate (temp1) as Canvas;
-		
-		// 构建EventSystem
-		// string path2 = PSDConst.GetPrefabPathByName("EventSystem");
-		// GameObject eventSys = AssetDatabase.LoadAssetAtPath(path2,typeof(GameObject)) as GameObject;
-		// GameObject eventSystem = GameObject.Instantiate (eventSys) as GameObject;
+	
 
-		
-
-
-		string path3 = PSDConst.GetPrefabPathByName("GameObject");
-		GameObject temp = AssetDatabase.LoadAssetAtPath(path3,typeof(GameObject)) as GameObject;
-		GameObject gameobj = GameObject.Instantiate(temp) as GameObject;
-		gameobj.name = model.name+"Prefab";
-		gameobj.transform.SetParent(canvas.gameObject.transform,false);
-		RectTransform rect = gameobj.GetComponent<RectTransform>();
-		// 总预设锚点再左上角(父锚点，锚点)
-		Vector2 anchorP = PSDConst.PIVOTPOINT1;
-		rect.anchorMin = anchorP;
-		rect.anchorMax = anchorP;
-		rect.pivot = anchorP; 
-		rect.offsetMin = new Vector2 (0.0f,0.0f);
-		rect.offsetMax = new Vector2 (0.0f,0.0f);
-		rect.sizeDelta = new Vector2 (model.options.width,model.options.height);
-
-		
-
-		for (int i = model.children.Length - 1; i >= 0; i--) 
+		for (var i = 0; i < modelList.Count; i++)
 		{
-			oneCopyImgToTmpPath(model.children[i],model.name);
+			var model = modelList[i];
+			string path3 = PSDConst.GetPrefabPathByName("GameObject");
+			GameObject temp = AssetDatabase.LoadAssetAtPath(path3,typeof(GameObject)) as GameObject;
+			GameObject gameobj = GameObject.Instantiate(temp) as GameObject;
+			gameobj.name = model.name+"Prefab";
+			gameobj.transform.SetParent(canvas.gameObject.transform,false);
+			RectTransform rect = gameobj.GetComponent<RectTransform>();
+			// 总预设锚点再左上角(父锚点，锚点)
+			Vector2 anchorP = PSDConst.PIVOTPOINT1;
+			rect.anchorMin = anchorP;
+			rect.anchorMax = anchorP;
+			rect.pivot = anchorP; 
+			rect.offsetMin = new Vector2 (0.0f,0.0f);
+			rect.offsetMax = new Vector2 (0.0f,0.0f);
+			rect.sizeDelta = new Vector2 (model.options.width,model.options.height);
+			for (int j = model.children.Length - 1; j >= 0; j--) 
+			{
+
+				initComponent(model.children[j],gameobj,dirName);
+			}
+
+			string prefabPath = PSDConst.GUI_PATH + dirName + "/" + model.name +"Prefab.prefab";
+			Debug.Log("######创建预设:"+prefabPath+"######");
+			PrefabUtility.CreatePrefab(prefabPath, gameobj, ReplacePrefabOptions.ReplaceNameBased);
 		}
 
-		copyImgToTmpPathFromPNGExport(model.name);
 
-		
-		//打包临时文件的图集
-		Debug.Log("######开始打图集######");
-		string srcPath = PSD2UI.texturePackerTempPath + model.name;
-		string tarPath = PSDConst.GUI_PATH + model.name + "/" + model.name + ".png";
-
-		AtlasManager.InitAtlasForTextureP(srcPath,tarPath);
-
-		UnityEngine.Object[] atlas = AssetDatabase.LoadAllAssetsAtPath(tarPath);
-
-
-		Debug.Log("######图集打完，开始加载UI######");
-		for (int i = model.children.Length - 1; i >= 0; i--) 
-		{
-			initComponent(model.children[i],gameobj,model.name);
-		}
-
-		string prefabPath = PSDConst.GUI_PATH + model.name + "/" + model.name +"Prefab.prefab";
-
-		Debug.Log("######UI加载完，创建预设######");
-		PrefabUtility.CreatePrefab(prefabPath, gameobj, ReplacePrefabOptions.ReplaceNameBased);
 		SetAssetBundleName();
 		BuildAB.BuildAllAssetBundles();
 
@@ -155,18 +166,29 @@ class PSD2UI : MonoBehaviour
 			string rootPath = (link_split.Length > 0) ? (link_split[0]) : "";
 			string imgPath = (link_split.Length > 0) ? link_split[link_split.Length - 1] : "";
 
-			//复制到临时文件夹，给打包图集用
-			string tmpDir = PSD2UI.texturePackerTempPath + fileName + "/";
-			string singleImg = PSD2UI.curBaseAssetsDir + rootPath + "/" + imgPath;
-			string tarSingleImg = tmpDir + imgPath;
-			string saveTempDir = Directory.GetParent (tarSingleImg).FullName;
-			// Debug.Log ("###tarImg:"+tarSingleImg);
-			// Debug.Log ("###saveDir:"+saveTempDir);
-			if (!Directory.Exists (saveTempDir)) {
-				Directory.CreateDirectory (saveTempDir);
+			string atlasName = "rootPath" + "_" + Path.GetFileNameWithoutExtension(imgPath);
+
+			Sprite sprite = null;
+			// 先到公共图集中查询是否有该图片
+			if (File.Exists (PSDConst.ATLAS_PATH_COMMON)) {
+				sprite = AtlasManager.getSpriteForTextureP (PSDConst.ATLAS_PATH_COMMON, atlasName);
 			}
-			if ((!File.Exists (tarSingleImg)) && (!Directory.Exists(tarSingleImg))) {
-				File.Copy (singleImg,tarSingleImg);
+
+			if(sprite == null)
+			{
+				//复制到临时文件夹，给打包图集用
+				string tmpDir = PSD2UI.texturePackerTempPath + fileName + "/";
+				string singleImg = PSD2UI.curBaseAssetsDir + rootPath + "/" + imgPath;
+				string tarSingleImg = tmpDir + imgPath;
+				string saveTempDir = Directory.GetParent (tarSingleImg).FullName;
+				Debug.Log ("###tarImg:"+tarSingleImg);
+				Debug.Log ("###saveDir:"+saveTempDir);
+				if (!Directory.Exists (saveTempDir)) {
+					Directory.CreateDirectory (saveTempDir);
+				}
+				if ((!File.Exists (tarSingleImg)) && (!Directory.Exists(tarSingleImg))) {
+					File.Copy (singleImg,tarSingleImg);
+				}
 			}
 		}
 		if (child.children.Length > 0) {
@@ -236,7 +258,6 @@ class PSD2UI : MonoBehaviour
 				initComponent(child.children [i], childObj, fileName);
 			}
 		}
-
 	}
 	// [MenuItem("MyTools/设置所有资源的AB名")]
 	public static void SetAssetBundleName()

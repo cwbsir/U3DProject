@@ -213,6 +213,7 @@ public static class CustomSettings
 
         //自定义类
         _GT(typeof(ByteArray)),
+        _GT(typeof(FileUtils)),
         _GT(typeof(TouchTrigger)),
         _GT(typeof(LinkImageText)),
         _GT(typeof(UIScrollContent)),
