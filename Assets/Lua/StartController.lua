@@ -15,7 +15,7 @@ function StartController:loadTemplate()
 	print("开始加载模板数据");
 	globalManager.loaderManager:loadBytes("ky203.txt",self.templateLoadComplete,self);
 end
-function StartController:templateLoadComplete(loaderItem,asset,bytes)
+function StartController:templateLoadComplete(abName,assetName,bytes)
 	if bytes ~= nil then
 		print("template load complete");
 		self.mubanTime = os.clock();
@@ -27,33 +27,30 @@ function StartController:templateParseComplete()
 	print("template parse complete");
 	print("ooooooooooooooooooooo解析模板表耗时：",os.clock() - self.mubanTime);
 	self._templateComplete = true;
+	self:loadShaders();
+end
+
+function StartController:loadShaders()
+	globalManager.loaderManager:loadAsset("shader.u",nil,self.loadShadersComplete,self);
+end
+
+function StartController:loadShadersComplete(abName,assetName,abContent)
+	globalConst.shaderType:init(abContent);
 	self:loadUIPrefabs();
 end
 
 function StartController:loadUIPrefabs()
-	globalManager.loaderManager:loadAsset("uiprefabs.u",self.loadUIPrefabsComplete,self);
+	globalManager.loaderManager:loadAsset("uiprefabs.u",nil,self.loadUIPrefabsComplete,self);
 end
 
-function StartController:loadUIPrefabsComplete(abName,assetName,abcontent)
-	globalData.uiPrefabs = parseABContent(abcontent);
-	-- for k,v in pairs(globalData.uiPrefabs) do
-	-- 	print("uiPrefabs:",k);
-	-- end
-	globalManager.loaderManager:loadAsset("font.u",self.loadFontComplete,self);
+function StartController:loadUIPrefabsComplete(abName,assetName,abContent)
+	globalData.uiPrefabs = parseABContent(abContent);
+	globalManager.loaderManager:loadAsset("font.u","yhFont.ttf",self.loadFontComplete,self);
 end
 
-function StartController:loadFontComplete(abName,assetName,abcontent)
-	globalData.defaultFont = abcontent:LoadAsset("yhFont.ttf");
+function StartController:loadFontComplete(abName,assetName,abContent)
+	globalData.defaultFont = abContent:LoadAsset(assetName);
 	
-	self:startGame();
-end
-
-function StartController:loadComplete(abName,assetName,abcontent)
-	
-	-- print(typeof(globalData.defaultFont));
-	local destList = parseABContent(abcontent);
-	--  = destList["Asterix-Blink.ttf"];
-	-- abcontent:LoadAsset("Text.prefab");
 	self:startGame();
 end
 
@@ -61,7 +58,8 @@ function StartController:startGame()
 	print("startGame");
 
 	local image = globalManager.kCreator:createImage();	
-	image:setPath("bg.jpg");
+	-- image:loadFromSpriteSheet("callpanel.u","callHeroImg1");
+	image:loadOutPic("callpanel-choukabg.png.u","callPanel-choukabg");
 	image:setPosition(globalManager.uiManager.PANEL_WIDTH/2,-globalManager.uiManager.PANEL_HEIGHT/2);
 	-- image:addTouchCallBack(self.btnClickHandler,self);
 	image:setParent(globalManager.uiManager.mainTransform);
@@ -71,15 +69,15 @@ function StartController:startGame()
 	label:setString("你是&#6$602$2$<color=#fb5657>没下划线点击</color>$81$0$0$0#&哈&#6$602$3$<color=#fb5657>下划线点击</color>$91$0$0$0#&吗");
 	label:setParent(globalManager.uiManager.mainTransform);
 
-	local scrollView = globalManager.kCreator:createScrollView("scrollView");
-	image:addNode(scrollView);
-	scrollView:setGap(5,5);
-	scrollView:setCallBacks(self.createItemCb,self.getItemIdCb,self.getItemLenCb,self);
-	scrollView:setFormat(1,100,100);
+	-- local scrollView = globalManager.kCreator:createScrollView("scrollView");
+	-- image:addNode(scrollView);
+	-- scrollView:setGap(5,5);
+	-- scrollView:setCallBacks(self.createItemCb,self.getItemIdCb,self.getItemLenCb,self);
+	-- scrollView:setFormat(1,100,100);
 end
 
 function StartController:createItemCb(index)
-	print("createItemCb",index);
+	-- print("createItemCb",index);
 	return globalManager.kCreator:createImage();
 end
 

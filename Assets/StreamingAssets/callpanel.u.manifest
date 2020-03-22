@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 119238230
+CRC: 3740952903
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c1d0f02b066159d3c5a0eb85adf2f904
+    Hash: b194e1e938fd47cc8393bc6c292d5eac
   TypeTreeHash:
     serializedVersion: 2
     Hash: f00b0af87db4f5c1899e3ddc582a01f4
@@ -37,5 +37,5 @@ Assets:
 - Assets/Resources/GUI/callPanel/callPanel_etc.mat
 - Assets/Resources/GUI/callPanel/callPanelPrefab.prefab
 Dependencies:
-- E:/UnityProject/U3DProject/Assets/StreamingAssets/font.u
-- E:/UnityProject/U3DProject/Assets/StreamingAssets/shader.u
+- D:/Desktop/myproject/unity_project/U3DProject/Assets/StreamingAssets/shader.u
+- D:/Desktop/myproject/unity_project/U3DProject/Assets/StreamingAssets/font.u

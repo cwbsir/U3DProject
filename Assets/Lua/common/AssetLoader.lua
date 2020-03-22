@@ -4,8 +4,11 @@ function AssetLoader:ctor(abName)
 	self.text = nil;
 	self.bytes = nil;
 	self.texture = nil;
+
+	self.count = 0;
 	--ab里面的内容
 	self.abContent = nil;
+
 	--0:assetbundle,1:text,2:bytes,3:texture
 	self.loadType = 0;
 
@@ -57,6 +60,7 @@ function AssetLoader:setLoadType(loadType)
 	self.loadType = loadType;
 end
 
+
 function AssetLoader:addCB(callback,target,assetName)
 	local index = self:hasCB(callback,target);
 	if(index == -1)then
@@ -71,6 +75,7 @@ function AssetLoader:addCB(callback,target,assetName)
 		print("重复添加加载回调");
 	end
 end
+
 function AssetLoader:removeCB(callback,target)
 	local index = self:hasCB(callback,target);
 	if(index > -1)then
@@ -102,7 +107,13 @@ end
 
 function AssetLoader:doCallBack(qd)
 	if self.loadType == 0 then
-		qd.callback(qd.target,self.abName,qd.params,self.abContent);
+		local assetName = qd.params;
+		if assetName ~= nil then
+			local asset =  self.abContent:LoadAsset(assetName);
+			qd.callback(qd.target,self.abName,qd.params,self.abContent,asset);
+		else
+			qd.callback(qd.target,self.abName,qd.params,self.abContent);
+		end
 	elseif self.loadType == 1 then
 		qd.callback(qd.target,self.abName,qd.params,self.text);
 	elseif self.loadType == 2 then
@@ -111,6 +122,10 @@ function AssetLoader:doCallBack(qd)
 		qd.callback(qd.target,self.abName,qd.params,self.texture);
 	end
 	
+end
+
+function AssetLoader:isCanRemove()
+	return #self._cbs <= 0;
 end
 
 function AssetLoader:dispose()

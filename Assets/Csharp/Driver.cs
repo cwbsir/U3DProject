@@ -51,7 +51,6 @@ public class Driver:MonoBehaviour
 
     void Awake ()
     {
-        print("Awake=======");
         Application.targetFrameRate = targetFrameRate;
     }
 
@@ -67,7 +66,7 @@ public class Driver:MonoBehaviour
 
     void FixedUpdate()
     {
-        fixedTickFunc.Call(Time.realtimeSinceStartup);
+        // fixedTickFunc.Call();
     }
 
     public void Close() {

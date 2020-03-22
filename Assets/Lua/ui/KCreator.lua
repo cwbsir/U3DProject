@@ -61,7 +61,7 @@ function KCreator:createImage(name,isPool)
 		image:show();
 	end
 
-	image:setPivot(self.pivotPoint1);
+	image:setPivot(self.pivotPoint0);
 	image:setAnchor(self.pivotPoint1,self.pivotPoint1);
 
 	return image;

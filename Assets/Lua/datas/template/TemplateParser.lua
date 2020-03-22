@@ -17,7 +17,7 @@ function TemplateParser:start(data,callback,target)
 	local pos = 4;
 	self._fileCount = data[pos + 1] * 256 + data[pos];
 
-	print("self._fileCount",data[pos + 1],data[pos],self._fileCount);
+	-- print("self._fileCount",data[pos + 1],data[pos],self._fileCount);
 
 	pos = pos + 2;
 	for i = 1,self._fileCount,1 do
@@ -26,7 +26,7 @@ function TemplateParser:start(data,callback,target)
 		local fileLen = data[pos + 3] * 16777216 + data[pos + 2] * 65536 + data[pos + 1] * 256 + data[pos];
 		pos = pos + 4;
 		local byteArray = ByteArray();
-		print("fileLen",fileLen);
+		-- print("fileLen",fileLen);
 		byteArray:loadBytesOffset(data,pos,fileLen);
 		pos = pos + fileLen;
 

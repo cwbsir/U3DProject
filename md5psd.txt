@@ -1,6 +1,6 @@
 {
     "callPanel": [
-        "E:/UnityProject/U3DProject/Assets/Resources/PSD/PSD/1_callPanel.psd", 
+        "D:/Desktop/myproject/unity_project/U3DProject/Assets/Resources/PSD/PSD/1_callPanel.psd", 
         "8ffe871ed5442070fb1ccbc2c0020d8b", 
         []
     ]

@@ -1,21 +1,21 @@
 ManifestFileVersion: 0
-CRC: 284657629
+CRC: 4123622292
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: font.u
-      Dependencies: {}
-    Info_1:
-      Name: uiprefabs.u
-      Dependencies: {}
-    Info_2:
-      Name: shader.u
-      Dependencies: {}
-    Info_3:
       Name: callpanel.u
       Dependencies:
-        Dependency_0: font.u
-        Dependency_1: shader.u
-    Info_4:
+        Dependency_0: shader.u
+        Dependency_1: font.u
+    Info_1:
+      Name: shader.u
+      Dependencies: {}
+    Info_2:
+      Name: font.u
+      Dependencies: {}
+    Info_3:
       Name: ky203.txt.u
+      Dependencies: {}
+    Info_4:
+      Name: uiprefabs.u
       Dependencies: {}

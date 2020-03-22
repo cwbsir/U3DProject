@@ -23,20 +23,7 @@ function PoolManager:ctor()
 	self.types["RichLabel"] = {RichLabel,self.uiRichLabelList,10};
 
 	self.types["QuoteData"] = {QuoteData,self.quoteDataList,0};
-	-- self.types["DownloadItem"] = {DownloadItem,self.downloadItemList,100};
-	-- self.types["LoaderItem"] = {LoaderItem,self.loaderItemList,100};
-	-- self.types["KUINode"] = {KUINode,self.uiNodeList,0};
-	-- self.types["KUIImage"] = {KUIImage,self.uiImageList,30};
-	-- self.types["KUI3DImage"] = {KUI3DImage,self.ui3DImageList,10};
-	-- self.types["KUILabel"] = {KUILabel,self.uiLabelList,20};
-	-- self.types["KUI3DLabel"] = {KUI3DLabel,self.ui3DLabelList,10};
-	-- self.types["KUIRichLabel"] = {KUIRichLabel,self.richLabelList,50};
-	-- self.types["KUINumberView"] = {KUINumberView,self.uiNumberList,10};
-	-- self.types["KUI3DNumberView"] = {KUINumberView,self.ui3DNumberList,5};
-	-- self.types["ItemGrid"] = {ItemGrid,self.itemGridList,0};
-	-- self.types["SkillGrid"] = {SkillGrid,self.skillGridList,20};
-	-- self.types["SkillEffectActionInfo"] = {SkillEffectActionInfo,self.actionInfoList,0};
-	-- self.types["ChatItemInfo"] = {ChatItemInfo,self.chatItemInfoList,0};
+
 end
 
 function PoolManager:createItem(usePool,itemType)

@@ -19,14 +19,14 @@ end
 
 function TestTemplateList:parseKey(info)
 	info.id = self._templateData:readInt();
-	print("info.id",info.id);
+	-- print("info.id",info.id);
 	self._list[info.id] = info;
 end
 
 function TestTemplateList:parseOne2(info)
 	info.name = self._templateData:readString();
 	info.age = self._templateData:readInt();
-	print("TestTemplateList:parseOne2",info.name,info.age);
+	-- print("TestTemplateList:parseOne2",info.name,info.age);
 end
 
 function TestTemplateList:getItem(id)

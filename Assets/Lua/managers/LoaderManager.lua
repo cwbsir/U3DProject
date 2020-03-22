@@ -5,14 +5,26 @@ function LoaderManager:ctor()
 
 end
 
-function LoaderManager:loadAsset(abName,callback,target)
+function LoaderManager:loadAsset(abName,assetName,callback,target)
+	print("loadAsset",abName,assetName);
 	local abLoader = self._abLoaders[abName];
 	if self._abLoaders[abName] == nil then
 		abLoader = AssetLoader:new(abName);
 		self._abLoaders[abName] = abLoader;
 	end
-	abLoader:addCB(callback,target);
+	abLoader:addCB(callback,target,assetName);
 	abLoader:doLoad();
+end
+
+function LoaderManager:removeAsset(abName,assetName,callback,target)
+	local abLoader = self._abLoaders[abName];
+	if abLoader ~= nil then
+		abLoader:removeCB(callback,target);
+		if abLoader:isCanRemove() then
+			self._abLoaders[abName]:dispose();
+			self._abLoaders[abName] = nil;
+		end
+	end
 end
 
 function LoaderManager:loadText(name,callback,target)
@@ -28,6 +40,7 @@ function LoaderManager:loadBytes(name, callback, target)
 	abLoader:addCB(callback, target);
 	abLoader:doLoad();
 end
+
 --加载png和jpg图片
 function LoaderManager:loadTexture(name, callback, target)
 	local abLoader = AssetLoader:new(name);

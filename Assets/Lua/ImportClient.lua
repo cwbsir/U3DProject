@@ -28,11 +28,15 @@ require "utils/Clone"
 require "datas/TriggerInfo"
 require "datas/TriggerType"
 
+require "datas/common/ShaderType"
+require "datas/common/SpriteSheetInfo"
+require "datas/common/SpriteSheetList"
+
 require "datas/template/BaseTemplateList"
-require "datas/template/SkillTemplateList"
 require "datas/template/TestTemplateList"
 
 require "managers/LoaderManager"
+require "managers/PathManager"
 require "managers/PoolManager"
 require "managers/TriggerManager"
 

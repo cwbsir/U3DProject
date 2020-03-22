@@ -1,3 +1,4 @@
+
 globalData = nil;
 globalConst = nil;
 globalManager = nil;
